@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CgGitFork } from "react-icons/cg";
 import { ImBlog } from "react-icons/im";
+import { BsFileEarmarkPdf } from "react-icons/bs";
 import {
   AiFillStar,
   AiOutlineHome,
@@ -91,10 +92,22 @@ function NavBar() {
                 to="/resume"
                 onClick={() => updateExpanded(false)}
               >
-                <AiOutlineFundProjectionScreen
+                <BsFileEarmarkPdf
                   style={{ marginBottom: "2px" }}
                 />{" "}
                 My Resume
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/contact"
+                onClick={() => updateExpanded(false)}
+              >
+                <BsFileEarmarkPdf
+                  style={{ marginBottom: "2px" }}
+                />{" "}
+                Contact Me 
               </Nav.Link>
             </Nav.Item>
           </Nav>
