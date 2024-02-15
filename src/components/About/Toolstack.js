@@ -7,6 +7,7 @@ import {
   SiHeroku,
   SiVercel,
   SiWebpack,
+  SiFirebase
 } from "react-icons/si";
 import { DiNpm } from "react-icons/di";
 
@@ -24,6 +25,9 @@ function Toolstack() {
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <DiNpm title="Node Package Manager" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiFirebase title="Firebase" />
       </Col>
     </Row>
   );
