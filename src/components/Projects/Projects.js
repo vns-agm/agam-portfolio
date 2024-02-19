@@ -6,6 +6,7 @@ import leaf from "../../Assets/Projects/leaf.png";
 import emotion from "../../Assets/Projects/emotion.png";
 import editor from "../../Assets/Projects/codeEditor.png";
 import chatify from "../../Assets/Projects/chatify.png";
+import season from "../../Assets/Projects/season.png";
 import suicide from "../../Assets/Projects/suicide.png";
 import bitsOfCode from "../../Assets/Projects/blog.png";
 
@@ -27,6 +28,16 @@ function Projects() {
               This is my personal portfolio, which I have built using mostly ReactJS, with a focus on creating an interactive and eye-catching UI. I have hosted it on my Firebase account"
               ghLink="https://github.com/vns-agm/agam-portfolio"
               demoLink="https://agam-portfolio.web.app/"
+            />
+          </Col>
+          <Col md={4} className="project-card">
+            <ProjectCard
+              imgPath={season}
+              isBlog={false}
+              title="Season's App"
+              description="This project I built during my initial phase of web development when I was dipping my toes into single-page applications. It is a simple application which ask for user location and suggest the season around"
+              ghLink="https://github.com/vns-agm/Seasons-app"
+              demoLink="https://project-season-app.web.app/"
             />
           </Col>
         </Row>
