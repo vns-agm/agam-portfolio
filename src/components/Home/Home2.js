@@ -39,7 +39,7 @@ function Home2() {
             <ul className="home-about-social-links">
               <li className="social-icons">
                 <a
-                  href="https://github.com/srv-agm"
+                  href="https://github.com/vns-agm"
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour  home-social-icons"
