@@ -24,7 +24,8 @@ function Home2() {
               diversity with welcome attitude for new ideas and concept to
               enhance the overall growth of the organisation.
               <br />
-              <br />I am National level Chess player with a fide Rating of 1209
+              <br />I am National level Chess player with a <a  target="_blank"
+                  rel="noreferrer" href={"https://ratings.fide.com/profile/25662210"}>fide Rating</a> of 1525
               .
               <br />
             </p>
