@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Particle from "../Particle";
 import resume from "../../Assets/Projects/resume.png";
 
-const pdfLink = "https://github.com/vns-agm/Agam-Resume/blob/main/Agam_Srivastava_Resume.pdf";
+const pdfLink = "https://drive.google.com/file/d/1C7HgYf19-VZ7fMsSlD6bwvFw3rt78Z5o/view";
 
 const handleDownload = () => {
     const link = document.createElement("a");

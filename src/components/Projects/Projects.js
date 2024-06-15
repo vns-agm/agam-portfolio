@@ -7,6 +7,7 @@ import emotion from "../../Assets/Projects/emotion.png";
 import editor from "../../Assets/Projects/codeEditor.png";
 import chatify from "../../Assets/Projects/chatify.png";
 import season from "../../Assets/Projects/season.png";
+import exploring from "../../Assets/Projects/exploring.png";
 import suicide from "../../Assets/Projects/suicide.png";
 import bitsOfCode from "../../Assets/Projects/blog.png";
 
@@ -42,7 +43,7 @@ function Projects() {
           </Col>
           <Col md={4} className="project-card">
             <ProjectCard
-              imgPath={season}
+              imgPath={exploring}
               isBlog={false}
               title="Exploring Places"
               description="This project search for the nearest local's around the user by the input provided . It shows the distance between the user locaton and the resulted places"
