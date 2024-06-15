@@ -9,8 +9,8 @@ import {
   DiPython,
   DiGit,
 } from "react-icons/di";
-import { SiMysql, SiRedux, SiNextdotjs } from "react-icons/si";
-import { ImGithub } from "react-icons/im";
+import { FaNode } from "react-icons/fa";
+import { SiMysql, SiRedux, SiNextdotjs , SiTypescript } from "react-icons/si";
 
 function Techstack() {
   return (
@@ -25,7 +25,10 @@ function Techstack() {
         <SiNextdotjs title="NextJs" />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <ImGithub title="Github" />
+        <FaNode title="Node" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+      <SiTypescript title="Typescript" />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiRedux title="Redux" />
@@ -33,6 +36,7 @@ function Techstack() {
       <Col xs={4} md={2} className="tech-icons">
         <SiMysql title="Mysql" />
       </Col>
+     
     </Row>
   );
 }

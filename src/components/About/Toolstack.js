@@ -9,13 +9,18 @@ import {
   SiWebpack,
   SiFirebase
 } from "react-icons/si";
+import { ImGithub } from "react-icons/im";
 import { DiNpm } from "react-icons/di";
+import { SiInsomnia } from "react-icons/si";
 
 function Toolstack() {
   return (
     <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
       <Col xs={4} md={2} className="tech-icons">
         <SiVisualstudiocode title="Visual Studio Code" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <ImGithub title="Github" />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiPostman title="Postman" />
@@ -28,6 +33,9 @@ function Toolstack() {
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiFirebase title="Firebase" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+      <SiInsomnia title="Insomnia" />
       </Col>
     </Row>
   );

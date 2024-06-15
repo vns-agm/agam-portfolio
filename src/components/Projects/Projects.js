@@ -40,6 +40,16 @@ function Projects() {
               demoLink="https://project-season-app.web.app/"
             />
           </Col>
+          <Col md={4} className="project-card">
+            <ProjectCard
+              imgPath={season}
+              isBlog={false}
+              title="Exploring Places"
+              description="This project search for the nearest local's around the user by the input provided . It shows the distance between the user locaton and the resulted places"
+              ghLink="https://github.com/vns-agm/Seasons-app"
+              demoLink="https://exploring-places.web.app/"
+            />
+          </Col>
         </Row>
       </Container>
     </Container>
