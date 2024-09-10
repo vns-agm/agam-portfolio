@@ -7,9 +7,11 @@ import {
   DiNodejs,
   DiMongodb,
   DiPython,
+  
   DiGit,
 } from "react-icons/di";
-import { FaNode } from "react-icons/fa";
+  import { FaDocker } from "react-icons/fa";
+  import { FaNode ,  } from "react-icons/fa";
 import { SiMysql, SiRedux, SiNextdotjs , SiTypescript } from "react-icons/si";
 
 function Techstack() {
@@ -35,6 +37,9 @@ function Techstack() {
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiMysql title="Mysql" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <FaDocker title="Docker" />
       </Col>
      
     </Row>

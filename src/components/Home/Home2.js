@@ -16,18 +16,11 @@ function Home2() {
               LET ME <span className="purple"> INTRODUCE </span> MYSELF
             </h1>
             <p className="home-about-body">
-              I am a Computer Science enthusiast , I love solving intresting
-              problems by logical and programming approaches . primarily
-              intrested in Frontend technologies like ReactJS , AngularJS , HTML
-              , CSS , JavaScript . Passionate to work in a progressive
-              organization that incorporates varied spectrum of work and
-              diversity with welcome attitude for new ideas and concept to
-              enhance the overall growth of the organisation.
+              As a passionate Computer Science enthusiast and International Rated chess player with a <a target="_blank"
+                rel="noreferrer" href={"https://ratings.fide.com/profile/25662210"}>fide Rating</a> of 1525
+              , I’ve represented Uttar Pradesh three times in Nationals (2017-18). <br/><br/>With 2.9 years of IT experience, I excel in problem-solving and have deep expertise in technologies like React.js, Next.js, Webflow, SCSS, JavaScript , TypeScript, and D3.js alongside state management using Redux. I also possess hands-on experience with backend frameworks like Node.js, Next.js, and NestJS, along with Docker, Shell Scripting, and Redis.
               <br />
-              <br />I am National level Chess player with a <a  target="_blank"
-                  rel="noreferrer" href={"https://ratings.fide.com/profile/25662210"}>fide Rating</a> of 1525
-              .
-              <br />
+
             </p>
           </Col>
         </Row>
@@ -35,7 +28,7 @@ function Home2() {
           <Col md={12} className="home-about-social">
             <h1>LET'S CONNECT</h1>
             <p>
-              Feel free to <span className="purple">connect </span>with me on 
+              Feel free to <span className="purple">connect </span>with me on
             </p>
             <ul className="home-about-social-links">
               <li className="social-icons">
