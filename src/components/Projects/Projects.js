@@ -51,6 +51,16 @@ function Projects() {
               demoLink="https://exploring-places.web.app/"
             />
           </Col>
+          <Col md={4} className="project-card">
+            <ProjectCard
+              imgPath={bitsOfCode}
+              isBlog={false}
+              title="Kashi Dana"
+              description="An e-commerce website built with React, featuring a modern and responsive design. The application is deployed on Vercel and provides a seamless shopping experience with interactive features."
+              ghLink="https://github.com/vns-agm/kashi-dana"
+              demoLink="https://kashi-dana.vercel.app/"
+            />
+          </Col>
         </Row>
       </Container>
     </Container>

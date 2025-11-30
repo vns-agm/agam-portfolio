@@ -14,9 +14,13 @@ function AboutCard() {
             <span className="purple">Btech in Computer Science</span> in the
             batch of 2018-2022 from{" "}
             <span className="purple">Shri Ramswaroop Memorial University.</span>
-            <br />I shaped my career in January 2022 by getting a job as a{" "}
-            <span className="purple">Software Engineer in mFilterIt </span>, A
-            product based AdTech company .
+            <br />I shaped my career in January 2022 by starting as a{" "}
+            <span className="purple">Research And Development Intern at mFilterIt</span>, a
+            product based AdTech company, where I worked for 3 years 8 months, progressing from Intern to{" "}
+            <span className="purple">Software Engineer</span> and then to{" "}
+            <span className="purple">Senior Software Engineer</span>.
+            <br />Currently, I am working as a{" "}
+            <span className="purple">Senior Software Engineer at Sopra Steria</span>, where I'm developing and managing microservices for the Aeroline Unit, working with client Airbus on the Aircraft Cabin program.
             <br />
             Apart from coding, some other activities that I love to do! 
           </p>

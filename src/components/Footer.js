@@ -5,7 +5,7 @@ import {
   AiFillInstagram,
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
-import { SiLichess } from "react-icons/si";
+import { SiLichess, SiLeetcode } from "react-icons/si";
 
 function Footer() {
   let date = new Date();
@@ -63,6 +63,17 @@ function Footer() {
                 title="Lichess"
               >
                 <SiLichess />
+              </a>
+            </li>
+            <li className="social-icons">
+              <a
+                href="https://leetcode.com/u/urVlyMewy3/"
+                target="_blank"
+                rel="noreferrer"
+                className="icon-colour  home-social-icons"
+                title="LeetCode"
+              >
+                <SiLeetcode />
               </a>
             </li>
           </ul>
