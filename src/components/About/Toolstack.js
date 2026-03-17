@@ -1,13 +1,11 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import {
-  SiLinux,
   SiVisualstudiocode,
   SiPostman,
-  SiHeroku,
-  SiVercel,
   SiWebpack,
-  SiFirebase
+  SiFirebase,
+  SiAmazonaws,
 } from "react-icons/si";
 import { ImGithub } from "react-icons/im";
 import { DiNpm } from "react-icons/di";
@@ -33,6 +31,9 @@ function Toolstack() {
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiFirebase title="Firebase" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiAmazonaws title="AWS" />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
       <SiInsomnia title="Insomnia" />

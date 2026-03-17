@@ -4,20 +4,45 @@ import Card from "react-bootstrap/Card";
 import { FaBriefcase, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 
 function Experience() {
+  const formatDurationFromDates = (startISO, endISO) => {
+    if (!startISO) return "";
+
+    const start = new Date(startISO);
+    const end = endISO ? new Date(endISO) : new Date();
+
+    // month difference ignoring days (use start date as 1st of month for consistency)
+    const monthDiff =
+      (end.getFullYear() - start.getFullYear()) * 12 +
+      (end.getMonth() - start.getMonth());
+
+    const totalMonths = Math.max(0, monthDiff);
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    const parts = [];
+    if (years > 0) parts.push(`${years} year${years === 1 ? "" : "s"}`);
+    if (months > 0 || parts.length === 0)
+      parts.push(`${months} month${months === 1 ? "" : "s"}`);
+
+    return parts.join(" ");
+  };
+
   const experiences = [
     {
       company: "Sopra Steria",
       logo: "https://business.udemy.com/wp-content/uploads/2021/06/sopra-steria-logo.png",
+      location: "Bengaluru, Karnataka, India",
+      workType: "Hybrid",
       roles: [
         {
           title: "Senior Software Engineer",
           type: "Full-time",
           duration: "August 2025 - Present",
-          months: "4 months",
-          location: "Bangalore, Karnataka, India",  
-          workType: "Hybrid",
+          startDate: "2025-08-01",
+          endDate: null,
+          location: "Bengaluru, Karnataka, India",
           description: "Working in the Aeroline Unit for client Airbus on the Aircraft Cabin program, developing and managing microservices using AWS (SQS/SNS).",
-          skills: ["Node.js", "Microservices", "AWS", "SQS", "SNS", "JavaScript", "TypeScript", "Docker", "Kubernetes", "CI/CD", "Agile", "REST APIs"]
+          skills: ["Angular", "Node.js", "NestJS", "Microservices", "AWS", "SQS", "SNS", "JavaScript", "TypeScript", "Docker", "Kubernetes", "CI/CD", "Agile", "REST APIs"]
         }
       ]
     },
@@ -175,7 +200,13 @@ function Experience() {
                         alignItems: "center"
                       }}>
                         <FaCalendarAlt style={{ marginRight: "6px", color: "#c770f0" }} />
-                        <strong style={{ color: "#c770f0" }}>Duration:</strong> {role.duration} <span style={{ color: "#d4c4e8" }}>({role.months})</span>
+                        <strong style={{ color: "#c770f0" }}>Duration:</strong> {role.duration}{" "}
+                        <span style={{ color: "#d4c4e8" }}>
+                          (
+                          {role.months ??
+                            formatDurationFromDates(role.startDate, role.endDate)}
+                          )
+                        </span>
                       </span>
                     </div>
                     {role.description && (

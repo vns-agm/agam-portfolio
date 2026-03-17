@@ -1,18 +1,18 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { CgCPlusPlus } from "react-icons/cg";
 import {
   DiJavascript1,
   DiReact,
-  DiNodejs,
-  DiMongodb,
-  DiPython,
-  
-  DiGit,
 } from "react-icons/di";
-  import { FaDocker } from "react-icons/fa";
-  import { FaNode ,  } from "react-icons/fa";
-import { SiMysql, SiRedux, SiNextdotjs , SiTypescript } from "react-icons/si";
+import { FaDocker, FaNode } from "react-icons/fa";
+import {
+  SiAngular,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiRedux,
+  SiTypescript,
+} from "react-icons/si";
 
 function Techstack() {
   return (
@@ -27,7 +27,13 @@ function Techstack() {
         <SiNextdotjs title="NextJs" />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
+        <SiAngular title="Angular" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
         <FaNode title="Node" />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiNestjs title="NestJS" />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
       <SiTypescript title="Typescript" />
