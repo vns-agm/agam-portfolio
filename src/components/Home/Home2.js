@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import myImg from "../../Assets/avatar.svg";
-import Tilt from "react-parallax-tilt";
+import Reveal from "../Reveal";
 import { AiFillGithub, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { SiLichess, SiLeetcode } from "react-icons/si";
@@ -11,7 +10,7 @@ function Home2() {
     <Container fluid className="home-about-section" id="about">
       <Container>
         <Row>
-          <Col md={8} className="home-about-description">
+          <Reveal as={Col} md={8} className="home-about-description">
             <h1 style={{ fontSize: "2.6em" }}>
               LET ME <span className="purple"> INTRODUCE </span> MYSELF
             </h1>
@@ -22,15 +21,15 @@ function Home2() {
               <br />
 
             </p>
-          </Col>
+          </Reveal>
         </Row>
         <Row>
-          <Col md={12} className="home-about-social">
+          <Reveal as={Col} md={12} className="home-about-social">
             <h1>LET'S CONNECT</h1>
             <p>
               Feel free to <span className="purple">connect </span>with me on
             </p>
-            <ul className="home-about-social-links">
+            <ul className="home-about-social-links social-stagger">
               <li className="social-icons">
                 <a
                   href="https://github.com/vns-agm"
@@ -87,7 +86,7 @@ function Home2() {
                 </a>
               </li>
             </ul>
-          </Col>
+          </Reveal>
         </Row>
       </Container>
     </Container>

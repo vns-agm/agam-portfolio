@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
-import Particle from "../Particle";
+import { AiOutlineDownload } from "react-icons/ai";
+import Reveal from "../Reveal";
 
 const pdfLink = "/Agam_Srivastava_MERN_3.8YOE.pdf";
 
@@ -17,22 +17,30 @@ const handleDownload = () => {
 
 
 function Myresume() {
+    const [loaded, setLoaded] = useState(false);
+
     return (
         <>
-          {/* <Particle/> */}
             <Container fluid className="project-section">
                 <Container>
-                    <div style={{ marginBottom: "20px", textAlign: "center" }}>
-                        <iframe
-                            src={`${pdfLink}#toolbar=0`}
-                            width="100%"
-                            height="800px"
-                            style={{ border: "1px solid #ccc", borderRadius: "5px" }}
-                            title="Resume Preview"
-                        />
-                    </div>
+                    <Reveal style={{ marginBottom: "20px", textAlign: "center" }}>
+                        <div className={`resume-frame ${loaded ? "is-loaded" : ""}`}>
+                            {!loaded && <div className="resume-skeleton" aria-hidden="true" />}
+                            <iframe
+                                src={`${pdfLink}#toolbar=0`}
+                                width="100%"
+                                className="resume-iframe"
+                                loading="lazy"
+                                onLoad={() => setLoaded(true)}
+                                style={{ border: "1px solid #ccc", borderRadius: "5px" }}
+                                title="Resume Preview"
+                            />
+                        </div>
+                    </Reveal>
                     <div style={{ textAlign: "center" }}>
-                        <Button style={{margin :"2px"}} onClick={handleDownload} className="btn btn-primary">Download PDF</Button>
+                        <Button style={{margin :"2px"}} onClick={handleDownload} className="btn btn-primary download-btn">
+                            <AiOutlineDownload /> &nbsp;Download PDF
+                        </Button>
                     </div>
                 </Container>
             </Container>
