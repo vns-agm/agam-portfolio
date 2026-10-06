@@ -1,35 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import logo from "../Assets/logo.png";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { CgGitFork } from "react-icons/cg";
-import { ImBlog } from "react-icons/im";
+import { Link, NavLink } from "react-router-dom";
 import { BsFileEarmarkPdf } from "react-icons/bs";
 import {
-  AiFillStar,
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
   AiOutlineUser,
+  AiOutlineMail,
 } from "react-icons/ai";
 
-import { CgFileDocument } from "react-icons/cg";
+const links = [
+  { to: "/", label: "Home", Icon: AiOutlineHome },
+  { to: "/about", label: "About", Icon: AiOutlineUser },
+  { to: "/project", label: "Projects", Icon: AiOutlineFundProjectionScreen },
+  { to: "/resume", label: "My Resume", Icon: BsFileEarmarkPdf },
+  { to: "/contact", label: "Contact Me", Icon: AiOutlineMail },
+];
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
 
-  function scrollHandler() {
-    if (window.scrollY >= 20) {
-      updateNavbar(true);
-    } else {
-      updateNavbar(false);
+  useEffect(() => {
+    function scrollHandler() {
+      updateNavbar(window.scrollY >= 20);
     }
-  }
 
-  window.addEventListener("scroll", scrollHandler);
+    scrollHandler();
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    return () => window.removeEventListener("scroll", scrollHandler);
+  }, []);
 
   return (
     <Navbar
@@ -39,9 +41,8 @@ function NavBar() {
       className={navColour ? "sticky" : "navbar"}
     >
       <Container>
-        <Navbar.Brand href="/" className="d-flex">
-          {/* <img src={logo} className="img-fluid logo" alt="brand" /> */}
-          <span className="purple" title="Agam Srivastva">
+        <Navbar.Brand as={Link} to="/" className="d-flex brand-mark" onClick={() => updateExpanded(false)}>
+          <span className="purple" title="Agam Srivastava">
             AS
           </span>
         </Navbar.Brand>
@@ -56,60 +57,19 @@ function NavBar() {
           <span></span>
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto" defaultActiveKey="#home">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
-                <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/about"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineUser style={{ marginBottom: "2px" }} /> About
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/project"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineFundProjectionScreen
-                  style={{ marginBottom: "2px" }}
-                />{" "}
-                Projects
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/resume"
-                onClick={() => updateExpanded(false)}
-              >
-                <BsFileEarmarkPdf
-                  style={{ marginBottom: "2px" }}
-                />{" "}
-                My Resume
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                as={Link}
-                to="/contact"
-                onClick={() => updateExpanded(false)}
-              >
-                <BsFileEarmarkPdf
-                  style={{ marginBottom: "2px" }}
-                />{" "}
-                Contact Me 
-              </Nav.Link>
-            </Nav.Item>
+          <Nav className="ms-auto">
+            {links.map(({ to, label, Icon }, i) => (
+              <Nav.Item key={to} className="nav-item-animated" style={{ "--i": i }}>
+                <Nav.Link
+                  as={NavLink}
+                  to={to}
+                  end={to === "/"}
+                  onClick={() => updateExpanded(false)}
+                >
+                  <Icon style={{ marginBottom: "2px" }} /> {label}
+                </Nav.Link>
+              </Nav.Item>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

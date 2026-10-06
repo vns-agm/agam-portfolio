@@ -13,42 +13,31 @@ import {
   SiRedux,
   SiTypescript,
 } from "react-icons/si";
+import Reveal from "../Reveal";
+
+const skills = [
+  { Icon: DiJavascript1, label: "JavaScript" },
+  { Icon: DiReact, label: "React" },
+  { Icon: SiNextdotjs, label: "Next.js" },
+  { Icon: SiAngular, label: "Angular" },
+  { Icon: FaNode, label: "Node" },
+  { Icon: SiNestjs, label: "NestJS" },
+  { Icon: SiTypescript, label: "TypeScript" },
+  { Icon: SiRedux, label: "Redux" },
+  { Icon: SiMysql, label: "MySQL" },
+  { Icon: FaDocker, label: "Docker" },
+];
 
 function Techstack() {
   return (
-    <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiJavascript1 title="JavaScript" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiReact title="ReactJs" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiNextdotjs title="NextJs" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiAngular title="Angular" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <FaNode title="Node" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiNestjs title="NestJS" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-      <SiTypescript title="Typescript" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiRedux title="Redux" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiMysql title="Mysql" />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <FaDocker title="Docker" />
-      </Col>
-     
-    </Row>
+    <Reveal as={Row} stagger style={{ justifyContent: "center", paddingBottom: "50px" }}>
+      {skills.map(({ Icon, label }) => (
+        <Col xs={4} md={2} className="tech-icons" key={label}>
+          <Icon title={label} />
+          <span className="tech-label">{label}</span>
+        </Col>
+      ))}
+    </Reveal>
   );
 }
 

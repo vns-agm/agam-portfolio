@@ -7,6 +7,8 @@ import Aboutcard from "./AboutCard";
 import laptopImg from "../../Assets/about.png";
 import Toolstack from "./Toolstack";
 import Experience from "./Experience";
+import Reveal from "../Reveal";
+import LazyImage from "../LazyImage";
 
 function About() {
   return (
@@ -14,8 +16,10 @@ function About() {
       <Particle />
       <Container>
         <Row style={{ justifyContent: "center", padding: "10px" }}>
-          <Col
+          <Reveal
+            as={Col}
             md={7}
+            direction="left"
             style={{
               justifyContent: "center",
               paddingTop: "30px",
@@ -26,24 +30,27 @@ function About() {
               Know Who <strong className="purple">I'M</strong>
             </h1>
             <Aboutcard />
-          </Col>
-          <Col
+          </Reveal>
+          <Reveal
+            as={Col}
             md={5}
+            direction="right"
+            delay={150}
             style={{ paddingTop: "120px", paddingBottom: "50px" }}
             className="about-img"
           >
-            <img src={laptopImg} alt="about" className="img-fluid" />
-          </Col>
+            <LazyImage src={laptopImg} alt="about" className="img-fluid float-slow" />
+          </Reveal>
         </Row>
-        <h1 className="project-heading">
+        <Reveal as="h1" className="project-heading">
           Primary <strong className="purple">Skillset </strong>
-        </h1>
+        </Reveal>
 
         <Techstack />
 
-        <h1 className="project-heading">
+        <Reveal as="h1" className="project-heading">
           <strong className="purple">Tools</strong> I use
-        </h1>
+        </Reveal>
         <Toolstack />
         <Experience />
         {/* <Github /> */}

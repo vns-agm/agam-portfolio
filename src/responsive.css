@@ -1,0 +1,280 @@
+/* ------------------------------------------------------------------ */
+/* Responsive layout + horizontal-overflow fixes. Loaded last.        */
+/* ------------------------------------------------------------------ */
+
+/* The particle layer is position: fixed at 100% width but had no left/top,
+   so it started at its container's padding and stuck out past the right edge. */
+#tsparticles {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* Safety net: nothing (e.g. a side slide-in mid-animation) may widen the page. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* Long words/emails/URLs wrap instead of pushing the layout wider. */
+p,
+h1,
+h2,
+h3,
+h4,
+li,
+strong,
+a {
+  overflow-wrap: break-word;
+}
+
+/* --------- Hero typewriter (was an inline 50px padding) --------- */
+.hero-typewriter {
+  padding: 50px;
+  text-align: left;
+  min-height: 3.5em;
+}
+
+.resume-iframe {
+  height: 800px;
+}
+
+/* --------- Tablet --------- */
+@media (max-width: 991px) {
+  .home-content {
+    padding: 7rem 0 2rem !important;
+  }
+  .heading {
+    font-size: 2em !important;
+    padding-left: 20px !important;
+  }
+  .heading-name {
+    font-size: 2.1em !important;
+    padding-left: 20px !important;
+  }
+  .hero-typewriter {
+    padding: 30px 20px;
+  }
+  .Typewriter__wrapper {
+    font-size: 1.7em !important;
+  }
+  .about-section {
+    padding-top: 110px !important;
+  }
+  .about-section .about-img {
+    padding-top: 40px !important;
+  }
+  .navbar-nav .nav-item {
+    margin-left: 6px;
+  }
+  .navbar {
+    font-size: 1.05rem !important;
+    padding: 0.3rem 1rem !important;
+  }
+}
+
+/* --------- Phone --------- */
+@media (max-width: 767px) {
+  .navbar {
+    padding: 0.6rem 1rem !important;
+    font-size: 1.15rem !important;
+  }
+  .navbar-nav .nav-item {
+    margin-left: 0;
+  }
+  .navbar-collapse {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  /* Hero */
+  .home-header {
+    padding-top: 40px !important;
+    text-align: center;
+  }
+  .home-content {
+    padding: 5.5rem 0 1rem !important;
+    text-align: center;
+  }
+  .heading {
+    font-size: 1.7em !important;
+    padding-left: 0 !important;
+  }
+  .heading-name {
+    font-size: 1.8em !important;
+    padding-left: 0 !important;
+  }
+  .hero-typewriter {
+    padding: 20px 0 30px;
+    text-align: center;
+    min-height: 2.6em;
+  }
+  /* The theme made the typewriter absolutely positioned on phones, which
+     let it overlap the illustration; keep it in normal flow instead. */
+  .Typewriter__wrapper {
+    position: static !important;
+    font-size: 1.35em !important;
+  }
+  .hero-art img {
+    max-height: 280px !important;
+  }
+
+  /* Intro */
+  .home-about-description {
+    padding-top: 50px !important;
+  }
+  .home-about-description h1 {
+    font-size: 1.9em !important;
+  }
+  .home-about-body {
+    padding-top: 25px;
+    font-size: 1.05em !important;
+  }
+  .social-icons {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* Section headings */
+  .project-heading {
+    font-size: 1.8em !important;
+  }
+  .project-section {
+    padding-top: 100px !important;
+  }
+
+  /* About */
+  .about-section {
+    padding-top: 90px !important;
+  }
+  .about-section h1 {
+    font-size: 1.8em !important;
+  }
+  .about-section .about-img {
+    padding-top: 10px !important;
+    padding-bottom: 30px !important;
+  }
+  .quote-card-view .blockquote {
+    font-size: 1rem;
+  }
+
+  /* Skill / tool grid: 3 per row that actually fit a 360px screen */
+  .tech-icons {
+    font-size: 2.6em !important;
+    margin: 6px !important;
+    padding: 12px 6px !important;
+    flex: 0 0 calc(33.333% - 12px) !important;
+    max-width: calc(33.333% - 12px) !important;
+  }
+  .tech-label {
+    font-size: 0.28em;
+    bottom: 3px;
+  }
+
+  /* Experience cards: inline styles use 30px padding + big logos */
+  .experience-card .card-body {
+    padding: 18px !important;
+  }
+  .experience-card h3 {
+    font-size: 1.2em !important;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .experience-card h3 img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .experience-card h4 {
+    font-size: 1.1em !important;
+  }
+  .experience-card p {
+    text-align: left !important;
+  }
+  /* Nested role blocks used negative side margins */
+  .experience-card .card-body > div {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Projects */
+  .project-card {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  .project-card-view .card-text {
+    text-align: left !important;
+  }
+
+  /* Contact */
+  .contact-row {
+    padding: 10px 12px;
+  }
+  .copy-btn span {
+    display: none;
+  }
+  .copy-btn {
+    padding: 8px;
+  }
+
+  /* Resume viewer: shorter frame so the download button is reachable */
+  .resume-iframe {
+    height: 70vh;
+    min-height: 420px;
+  }
+
+  /* Footer */
+  .footer h3 {
+    font-size: 0.95em !important;
+  }
+  .footer-icons {
+    padding-left: 0;
+  }
+
+  /* Smaller slide distance so off-screen starts stay close to the edge */
+  .reveal-left {
+    transform: translateX(-20px);
+  }
+  .reveal-right {
+    transform: translateX(20px);
+  }
+
+  .back-to-top {
+    right: 14px;
+    bottom: 14px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* --------- Small phones --------- */
+@media (max-width: 380px) {
+  .heading {
+    font-size: 1.5em !important;
+  }
+  .heading-name {
+    font-size: 1.55em !important;
+  }
+  .Typewriter__wrapper {
+    font-size: 1.15em !important;
+  }
+  .social-icons {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}

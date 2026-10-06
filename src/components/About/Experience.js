@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { FaBriefcase, FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
+import Reveal from "../Reveal";
 
 function Experience() {
   const formatDurationFromDates = (startISO, endISO) => {
@@ -83,14 +84,15 @@ function Experience() {
 
   return (
     <Container style={{ paddingTop: "50px", paddingBottom: "50px" }}>
-      <h1 className="project-heading">
+      <Reveal as="h1" className="project-heading">
         <strong className="purple">Experience</strong>
-      </h1>
+      </Reveal>
       <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
         <Col md={10}>
           {experiences.map((exp, companyIndex) => (
-            <Card 
-              key={companyIndex} 
+            <Reveal key={companyIndex} delay={companyIndex * 100}>
+            <Card
+              className="experience-card"
               style={{ 
                 marginBottom: "30px",
                 backgroundColor: "rgba(30, 25, 45, 0.85)",
@@ -115,8 +117,9 @@ function Experience() {
                     fontWeight: "600"
                   }}>
                     {exp.logo && (
-                      <img 
-                        src={exp.logo} 
+                      <img
+                        loading="lazy"
+                        src={exp.logo}
                         alt={exp.company} 
                         style={{ 
                           width: "50px", 
@@ -229,8 +232,10 @@ function Experience() {
                         border: "1px solid rgba(199, 112, 240, 0.2)"
                       }}>
                         <strong style={{ color: "#c770f0", fontSize: "1em" }}>Skills: </strong>
-                        <span style={{ color: "#d4c4e8" }}>
-                          {role.skills.join(", ")}
+                        <span className="skill-chips">
+                          {role.skills.map((skill) => (
+                            <span className="skill-chip" key={skill}>{skill}</span>
+                          ))}
                         </span>
                       </div>
                     )}
@@ -238,6 +243,7 @@ function Experience() {
                 ))}
               </Card.Body>
             </Card>
+            </Reveal>
           ))}
         </Col>
       </Row>
