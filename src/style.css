@@ -22,6 +22,51 @@ button:focus {
   box-shadow: none !important;
 }
 
+/* Stop clicks/taps from flashing Bootstrap/browser blue */
+a,
+button,
+.btn,
+.nav-link {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+a:focus,
+a:focus-visible,
+.btn:focus-visible,
+.nav-link:focus,
+.nav-link:focus-visible,
+.navbar-toggler:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn.btn-primary {
+  --bs-btn-hover-bg: #6d20c5d7;
+  --bs-btn-hover-border-color: #6d20c5d7;
+  --bs-btn-active-bg: #4f2a6e;
+  --bs-btn-active-border-color: #4f2a6e;
+  --bs-btn-focus-shadow-rgb: 98, 54, 134;
+  --bs-btn-disabled-bg: #623686;
+  --bs-btn-disabled-border-color: #623686;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:focus,
+.btn-primary:focus-visible {
+  color: #fff !important;
+  background-color: #4f2a6e !important;
+  border-color: #4f2a6e !important;
+  box-shadow: none !important;
+}
+
+::selection {
+  background: rgba(199, 112, 240, 0.35);
+  color: #fff;
+}
+
 /* --------- */
 /*  Preloader */
 /* --------- */
@@ -517,7 +562,7 @@ button:focus {
   border-radius: 0px !important;
 }
 
-.btn-primary {
+.btn.btn-primary {
   color: #fff !important;
   background-color: #623686 !important;
   border-color: #623686 !important;
