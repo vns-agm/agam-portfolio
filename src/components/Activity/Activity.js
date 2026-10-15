@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import { FaChevronLeft, FaChevronRight, FaFire, FaCodeBranch } from "react-icons/fa";
 import { BiGitCommit } from "react-icons/bi";
 import { AiFillGithub } from "react-icons/ai";
-import Particle from "../Particle";
 import Reveal from "../Reveal";
 
 const USERNAME = "vns-agm";
@@ -193,7 +192,6 @@ function Activity() {
 
   return (
     <Container fluid className="activity-section">
-      <Particle />
       <Container>
         <Reveal as="h1" className="project-heading">
           Code <strong className="purple">Activity</strong>

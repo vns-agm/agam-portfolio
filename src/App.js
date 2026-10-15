@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PageLoader from "./components/PageLoader";
 import CursorGlow from "./components/CursorGlow";
+import Particle from "./components/Particle";
 import ScrollIndicators from "./components/ScrollIndicators";
 import {
   BrowserRouter as Router,
@@ -52,27 +53,17 @@ function App() {
   const [load, upadateLoad] = useState(true);
 
   useEffect(() => {
-    // Hide the splash once the page has actually loaded (with a short minimum so it doesn't flash).
-    let timer;
-    const done = () => {
-      timer = setTimeout(() => upadateLoad(false), 400);
-    };
-
-    if (document.readyState === "complete") {
-      done();
-    } else {
-      window.addEventListener("load", done);
-    }
-
-    return () => {
-      window.removeEventListener("load", done);
-      clearTimeout(timer);
-    };
+    // Hide the splash right after the app mounts instead of waiting for every
+    // image and font (window "load"), which kept slow connections on a blank screen.
+    // A timer, not requestAnimationFrame: rAF never fires in background tabs.
+    const timer = setTimeout(() => upadateLoad(false), 200);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <Router>
       <Preloader load={load} />
+      <Particle />
       <CursorGlow />
       <ScrollIndicators />
       <div className="App" id={load ? "no-scroll" : "scroll"}>

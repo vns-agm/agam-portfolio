@@ -15,8 +15,8 @@ function CursorGlow() {
     const onMove = (e) => {
       if (frame) return;
       frame = requestAnimationFrame(() => {
-        node.style.setProperty("--x", `${e.clientX}px`);
-        node.style.setProperty("--y", `${e.clientY}px`);
+        // transform only: composited on the GPU, no full-screen repaint per move.
+        node.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
         node.classList.add("is-active");
         frame = null;
       });

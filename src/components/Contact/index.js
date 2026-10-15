@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { AiOutlineMail, AiOutlinePhone, AiOutlineCopy, AiOutlineCheck } from "react-icons/ai";
-import Particle from "../Particle";
 import Reveal from "../Reveal";
 import LazyImage from "../LazyImage";
-import trophies from "../../Assets/trophies.png";
+import trophies from "../../Assets/opt/trophies-400.png";
 
 const EMAIL = "agamsrivastavavns1193@gmail.com";
 const PHONE = "+91 8687522809";
@@ -57,7 +56,6 @@ function ContactRow({ Icon, label, value, href }) {
 function Contact() {
     return (
         <Container className="about-section">
-            <Particle />
                 <Row style={{ justifyContent: "center", padding: "5px" }}>
                     <Reveal
                         as={Col}

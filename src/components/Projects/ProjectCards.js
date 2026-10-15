@@ -5,14 +5,16 @@ import Tilt from "react-parallax-tilt";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
 import LazyImage from "../LazyImage";
+import canTilt from "../canTilt";
 
 function ProjectCards(props) {
   return (
     <Tilt
       className="project-tilt"
+      tiltEnable={canTilt}
       tiltMaxAngleX={6}
       tiltMaxAngleY={6}
-      glareEnable={true}
+      glareEnable={canTilt}
       glareMaxOpacity={0.15}
       glareColor="#c770f0"
       glarePosition="all"

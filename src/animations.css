@@ -48,12 +48,12 @@ html {
 
 /* --------- Page transitions & route loader --------- */
 .page-transition {
-  animation: page-in 0.6s var(--ease-out) both;
+  animation: page-in 0.35s var(--ease-out) both;
 }
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -97,17 +97,21 @@ html {
 /* --------- Scroll reveal --------- */
 .reveal {
   opacity: 0;
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+/* Only hint a GPU layer while waiting to animate; permanent will-change on every
+   section keeps dozens of layers alive and costs a lot of memory on phones. */
+.reveal:not(.is-visible) {
   will-change: opacity, transform;
 }
 .reveal-up {
-  transform: translateY(40px);
+  transform: translateY(20px);
 }
 .reveal-left {
-  transform: translateX(-40px);
+  transform: translateX(-20px);
 }
 .reveal-right {
-  transform: translateX(40px);
+  transform: translateX(20px);
 }
 .reveal-zoom {
   transform: scale(0.94);
@@ -123,28 +127,28 @@ html {
 }
 .reveal-stagger.is-visible > * {
   opacity: 0.93;
-  animation: stagger-in 0.6s var(--ease-out) backwards;
+  animation: stagger-in 0.45s var(--ease-out) backwards;
 }
 @keyframes stagger-in {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.92);
+    transform: translateY(14px) scale(0.96);
   }
 }
-.reveal-stagger.is-visible > *:nth-child(2) { animation-delay: 60ms; }
-.reveal-stagger.is-visible > *:nth-child(3) { animation-delay: 120ms; }
-.reveal-stagger.is-visible > *:nth-child(4) { animation-delay: 180ms; }
-.reveal-stagger.is-visible > *:nth-child(5) { animation-delay: 240ms; }
-.reveal-stagger.is-visible > *:nth-child(6) { animation-delay: 300ms; }
-.reveal-stagger.is-visible > *:nth-child(7) { animation-delay: 360ms; }
-.reveal-stagger.is-visible > *:nth-child(8) { animation-delay: 420ms; }
-.reveal-stagger.is-visible > *:nth-child(9) { animation-delay: 480ms; }
-.reveal-stagger.is-visible > *:nth-child(10) { animation-delay: 540ms; }
-.reveal-stagger.is-visible > *:nth-child(n + 11) { animation-delay: 600ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { animation-delay: 40ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { animation-delay: 80ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { animation-delay: 120ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { animation-delay: 160ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { animation-delay: 200ms; }
+.reveal-stagger.is-visible > *:nth-child(7) { animation-delay: 240ms; }
+.reveal-stagger.is-visible > *:nth-child(8) { animation-delay: 280ms; }
+.reveal-stagger.is-visible > *:nth-child(9) { animation-delay: 320ms; }
+.reveal-stagger.is-visible > *:nth-child(10) { animation-delay: 360ms; }
+.reveal-stagger.is-visible > *:nth-child(n + 11) { animation-delay: 400ms; }
 
 /* --------- Hero --------- */
 .hero-enter {
-  animation: hero-in 0.9s var(--ease-out) both;
+  animation: hero-in 0.6s var(--ease-out) both;
   animation-delay: var(--d, 0ms);
 }
 .hero-art {
@@ -153,13 +157,11 @@ html {
 @keyframes hero-in {
   from {
     opacity: 0;
-    transform: translateY(30px);
-    filter: blur(6px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
 

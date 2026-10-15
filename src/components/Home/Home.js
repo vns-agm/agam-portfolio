@@ -2,10 +2,10 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Tilt from "react-parallax-tilt";
 import homeLogo from "../../Assets/home-main.svg";
-import Particle from "../Particle";
 import Home2 from "./Home2";
 import Type from "./Type";
 import Stats from "./Stats";
+import canTilt from "../canTilt";
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import { AiOutlineDownload } from "react-icons/ai";
@@ -14,7 +14,6 @@ function Home() {
   return (
     <section>
       <Container fluid className="home-section" id="home">
-        <Particle />
         <Container className="home-content">
           <Row>
             <Col md={7} className="home-header">
@@ -59,13 +58,16 @@ function Home() {
                 tiltMaxAngleY={8}
                 perspective={900}
                 transitionSpeed={1500}
-                gyroscope={true}
+                tiltEnable={canTilt}
               >
                 <img
                   src={homeLogo}
                   alt="home pic"
                   className="img-fluid float-slow"
-                  style={{ maxHeight: "450px" }}
+                  width="450"
+                  height="450"
+                  fetchpriority="high"
+                  style={{ maxHeight: "450px", height: "auto" }}
                 />
               </Tilt>
             </Col>

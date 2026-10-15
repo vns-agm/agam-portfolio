@@ -1,67 +1,42 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 
-// The particle engine is heavy, so it loads in its own chunk after the page renders.
-const Particles = lazy(() => import("react-tsparticles"));
+// Pure-CSS starfield. Replaces the old canvas particle engine, which redrew 100
+// particles every frame. Stars are box-shadows painted once; the layers only
+// drift via `transform`, which the GPU composites without repainting.
+
+// Small seeded PRNG so the sky looks the same on every render.
+function rng(seed) {
+  return () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
+}
+
+function makeStars(count, seed, alpha) {
+  const rand = rng(seed);
+  const stars = [];
+  for (let i = 0; i < count; i++) {
+    const x = Math.round(rand() * 2000);
+    const y = Math.round(rand() * 2000);
+    const a = (alpha * (0.4 + rand() * 0.6)).toFixed(2);
+    stars.push(`${x}px ${y}px rgba(255,255,255,${a})`);
+  }
+  return stars.join(",");
+}
+
+const layers = [
+  { className: "stars stars-sm", shadow: makeStars(180, 7, 0.55) },
+  { className: "stars stars-md", shadow: makeStars(60, 42, 0.75) },
+  { className: "stars stars-lg", shadow: makeStars(18, 99, 0.9) },
+];
 
 function Particle() {
   return (
-    <Suspense fallback={null}>
-      <Particles
-        id="tsparticles"
-        params={{
-          particles: {
-            number: {
-              value: 100,
-              density: {
-                enable: true,
-                value_area: 500,
-              },
-            },
-            line_linked: {
-              enable: false,
-              opacity: 0.03,
-            },
-            move: {
-              direction: "right",
-              speed: 0.05,
-            },
-            size: {
-              value: 1,
-            },
-            opacity: {
-              anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.05,
-              },
-            },
-          },
-          interactivity: {
-            detect_on: "window",
-            events: {
-              onhover: {
-                enable: true,
-                mode: "repulse",
-              },
-              onclick: {
-                enable: true,
-                mode: "push",
-              },
-            },
-            modes: {
-              repulse: {
-                distance: 90,
-                duration: 0.4,
-              },
-              push: {
-                particles_nb: 4,
-              },
-            },
-          },
-          retina_detect: true,
-        }}
-      />
-    </Suspense>
+    <div className="starfield" aria-hidden="true">
+      {layers.map(({ className, shadow }) => (
+        <div key={className} className={className} style={{ boxShadow: shadow }} />
+      ))}
+    </div>
   );
 }
 

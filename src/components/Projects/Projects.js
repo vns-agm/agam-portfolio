@@ -1,15 +1,14 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
-import Particle from "../Particle";
 import Reveal from "../Reveal";
-import chatify from "../../Assets/Projects/chatify.png";
-import season from "../../Assets/Projects/season.png";
-import exploring from "../../Assets/Projects/exploring.png";
-import bitsOfCode from "../../Assets/Projects/blog.png";
-import ticketPortal from "../../Assets/ticket_portal.png";
-import customTable from "../../Assets/custom_table.png";
-import studentCrm from "../../Assets/student_crm.png";
+import chatify from "../../Assets/opt/chatify.jpg";
+import season from "../../Assets/opt/season.jpg";
+import exploring from "../../Assets/opt/exploring.jpg";
+import bitsOfCode from "../../Assets/opt/blog.jpg";
+import ticketPortal from "../../Assets/opt/ticket_portal.jpg";
+import customTable from "../../Assets/opt/custom_table.jpg";
+import studentCrm from "../../Assets/opt/student_crm.jpg";
 
 const projects = [
   {
@@ -73,7 +72,6 @@ const projects = [
 function Projects() {
   return (
     <Container fluid className="project-section">
-      <Particle />
       <Container>
         <Reveal as="h1" className="project-heading">
           My Recent <strong className="purple">Works </strong>

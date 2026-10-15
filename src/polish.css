@@ -17,6 +17,61 @@ body {
   color: #f1ecf8;
 }
 
+/* --------- Starfield background (see Particle.js) --------- */
+.starfield {
+  position: fixed;
+  inset: 0;
+  /* Above section backgrounds (as the old canvas was), below page content,
+     which animations.css lifts to z-index 1 and which comes later in the DOM. */
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: transparent;
+  will-change: transform;
+}
+.stars-sm { width: 1px; height: 1px; animation: star-drift 240s linear infinite; }
+.stars-md { width: 2px; height: 2px; animation: star-drift 180s linear infinite; }
+.stars-lg { width: 2px; height: 2px; animation: star-drift 120s linear infinite, star-twinkle 4s ease-in-out infinite alternate; }
+/* Drift right by one 2000px tile; the copy offset below makes it seamless. */
+.stars::after {
+  content: "";
+  position: absolute;
+  left: -2000px;
+  top: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  box-shadow: inherit;
+}
+@keyframes star-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(2000px, 0, 0); }
+}
+@keyframes star-twinkle {
+  from { opacity: 1; }
+  to { opacity: 0.35; }
+}
+
+/* Cursor glow: a fixed-size blob moved with transform (see CursorGlow.js),
+   instead of a full-viewport gradient repainted on every mouse move. */
+.cursor-glow {
+  inset: auto !important;
+  top: -420px !important;
+  left: -420px !important;
+  width: 840px;
+  height: 840px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(199, 112, 240, 0.09), transparent 70%) !important;
+  will-change: transform;
+}
+
 /* --------- Shared surfaces --------- */
 .glass-card {
   background: linear-gradient(160deg, rgba(44, 32, 74, 0.55), rgba(20, 15, 36, 0.7));
@@ -24,8 +79,6 @@ body {
   border-radius: 18px;
   box-shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.8),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 /* Section headings get a short gradient underline */
@@ -195,7 +248,6 @@ body {
   background: rgba(28, 22, 46, 0.55);
   border: 1px solid var(--border);
   text-align: left;
-  backdrop-filter: blur(8px);
 }
 .hero-stat strong {
   display: block;
@@ -982,9 +1034,90 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .stars,
   .pulse-dot::after,
   .calendar-day.is-loading,
   .commit-skeleton {
     animation: none;
+  }
+}
+
+/* --------- Performance on touch / small screens --------- */
+@media (max-width: 767px), (hover: none) {
+  /* Backdrop blur is one of the most expensive effects on mobile GPUs. */
+  .sticky,
+  .navbar {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(18, 14, 32, 0.96) !important;
+  }
+  /* Fewer always-running animations on phones. */
+  .float-slow,
+  .shimmer-text,
+  .stars-lg {
+    animation: none !important;
+  }
+  .stars-md {
+    display: none;
+  }
+}
+
+/* --------- Mobile layout fixes --------- */
+/* Touch screens can't hover, so the skill / tool names are always shown. */
+@media (hover: none) {
+  .tech-icons {
+    padding-bottom: 26px !important;
+  }
+  .tech-icons .tech-label {
+    opacity: 0.85;
+    transform: none;
+    bottom: 6px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Justified text leaves big word gaps on narrow screens. */
+  .quote-card-view p,
+  .home-about-body,
+  .project-card-view .card-text {
+    text-align: left !important;
+  }
+  .home-about-description {
+    padding-top: 60px !important;
+  }
+  .home-about-description h1 {
+    font-size: 1.9em !important;
+  }
+  .project-heading {
+    font-size: 1.9em !important;
+  }
+
+  /* Long email addresses: smaller and allowed to break anywhere instead of mid-overflow. */
+  .contact-link strong {
+    font-size: 0.92em;
+    word-break: break-all;
+  }
+
+  .activity-teaser {
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+  }
+  .activity-teaser .hero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Footer: stack neatly and keep icons on one line. */
+  .footer .footer-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-left: 0;
+  }
+  .footer .social-icons {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
   }
 }
