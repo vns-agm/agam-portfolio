@@ -9,6 +9,8 @@ import Toolstack from "./Toolstack";
 import Experience from "./Experience";
 import Reveal from "../Reveal";
 import LazyImage from "../LazyImage";
+import { Link } from "react-router-dom";
+import { BsArrowRight } from "react-icons/bs";
 
 function About() {
   return (
@@ -53,7 +55,15 @@ function About() {
         </Reveal>
         <Toolstack />
         <Experience />
-        {/* <Github /> */}
+        <Reveal className="activity-teaser glass-card">
+          <div>
+            <h3>Curious what I'm building right now?</h3>
+            <p>Browse my GitHub commits month by month, straight from the API.</p>
+          </div>
+          <Link to="/activity" className="btn btn-primary hero-btn">
+            See code activity <BsArrowRight />
+          </Link>
+        </Reveal>
       </Container>
     </Container>
   );

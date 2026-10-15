@@ -17,6 +17,7 @@ import "./style.css";
 import "./App.css";
 import "./animations.css";
 import "./responsive.css";
+import "./polish.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Each page is its own chunk, downloaded only when first visited.
@@ -25,6 +26,7 @@ const About = lazy(() => import("./components/About/About"));
 const Projects = lazy(() => import("./components/Projects/Projects"));
 const Myresume = lazy(() => import("./components/Resume/resume"));
 const Contact = lazy(() => import("./components/Contact"));
+const Activity = lazy(() => import("./components/Activity/Activity"));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -38,6 +40,7 @@ function AnimatedRoutes() {
           <Route path="/about" element={<About/>} />
           <Route path="/resume" element={<Myresume/>}/>
           <Route path="/contact" element={<Contact/>} />
+          <Route path="/activity" element={<Activity />} />
           <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
       </Suspense>

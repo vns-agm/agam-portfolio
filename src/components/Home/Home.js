@@ -5,6 +5,10 @@ import homeLogo from "../../Assets/home-main.svg";
 import Particle from "../Particle";
 import Home2 from "./Home2";
 import Type from "./Type";
+import Stats from "./Stats";
+import { Link } from "react-router-dom";
+import { BsArrowRight } from "react-icons/bs";
+import { AiOutlineDownload } from "react-icons/ai";
 
 function Home() {
   return (
@@ -14,6 +18,9 @@ function Home() {
         <Container className="home-content">
           <Row>
             <Col md={7} className="home-header">
+              <div className="now-chip hero-enter">
+                <span className="pulse-dot" /> Senior Software Engineer @ <strong>Sopra Steria</strong>
+              </div>
               <h1 style={{ paddingBottom: 15 }} className="heading hero-enter">
                 Hi There!{" "}
                 <span className="wave" role="img" aria-labelledby="wave">
@@ -29,6 +36,21 @@ function Home() {
               <div className="hero-enter hero-typewriter" style={{ "--d": "300ms" }}>
                 <Type />
               </div>
+
+              <div className="hero-ctas hero-enter" style={{ "--d": "380ms" }}>
+                <Link to="/project" className="btn btn-primary hero-btn">
+                  View my work <BsArrowRight />
+                </Link>
+                <a
+                  href="/Agam_Srivastava_MERN_3.8YOE.pdf"
+                  download
+                  className="btn hero-btn hero-btn-ghost"
+                >
+                  <AiOutlineDownload /> Resume
+                </a>
+              </div>
+
+              <Stats />
             </Col>
 
             <Col md={5} style={{ paddingBottom: 20 }} className="hero-enter hero-art" >

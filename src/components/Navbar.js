@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { Link, NavLink } from "react-router-dom";
 import { BsFileEarmarkPdf } from "react-icons/bs";
+import { BiGitCommit } from "react-icons/bi";
 import {
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
@@ -15,8 +16,9 @@ const links = [
   { to: "/", label: "Home", Icon: AiOutlineHome },
   { to: "/about", label: "About", Icon: AiOutlineUser },
   { to: "/project", label: "Projects", Icon: AiOutlineFundProjectionScreen },
-  { to: "/resume", label: "My Resume", Icon: BsFileEarmarkPdf },
-  { to: "/contact", label: "Contact Me", Icon: AiOutlineMail },
+  { to: "/activity", label: "Activity", Icon: BiGitCommit },
+  { to: "/resume", label: "Resume", Icon: BsFileEarmarkPdf },
+  { to: "/contact", label: "Contact", Icon: AiOutlineMail },
 ];
 
 function NavBar() {
