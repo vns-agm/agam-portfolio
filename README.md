@@ -1,6 +1,6 @@
 # My personal showcase of profile and projects 
 
-## Built WiTH USING THE FOLOWING TECH STACKKKKKKKKKKKKKKKK
+## Built With
 This project was built using these technologies.
 
 - React.js
