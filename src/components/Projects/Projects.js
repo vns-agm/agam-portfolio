@@ -9,8 +9,17 @@ import bitsOfCode from "../../Assets/opt/blog.jpg";
 import ticketPortal from "../../Assets/opt/ticket_portal.jpg";
 import customTable from "../../Assets/opt/custom_table.jpg";
 import studentCrm from "../../Assets/opt/student_crm.jpg";
+import agamBlog from "../../Assets/opt/agam_blog.jpg";
 
 const projects = [
+  {
+    imgPath: agamBlog,
+    title: "Agam's Blog",
+    description:
+      "My personal blog built with Next.js and a Turso (libSQL) database. Write, edit and draft Markdown posts from a password-protected admin panel, with a light/dark theme. Hosted on Vercel.",
+    ghLink: "https://github.com/vns-agm/agam-blog",
+    demoLink: "https://agam-blog-iota.vercel.app/",
+  },
   {
     imgPath: studentCrm,
     title: "Student CRM",
