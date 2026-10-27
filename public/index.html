@@ -11,9 +11,24 @@
   <link rel="preconnect" href="https://api.github.com" crossorigin />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <script>
+    // Pick the theme before first paint so there's no flash of the wrong one:
+    // saved choice first, otherwise the OS preference.
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem("theme"); } catch (e) {}
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", theme);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", theme === "light" ? "#f6f2fb" : "#140f23");
+    })();
+  </script>
   <style>
-    /* Paint the dark background before any CSS/JS arrives, so there's no white flash. */
+    /* Paint the right background before any CSS/JS arrives. */
     html, body { background: #140f23; }
+    html[data-theme="light"], html[data-theme="light"] body { background: #f6f2fb; }
   </style>
   <meta name="description" content="Self Developed personal website built with React.js" />
   <meta itemprop="name" content="Agam Srivastava | Portfolio">

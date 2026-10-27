@@ -5,6 +5,9 @@ import Container from "react-bootstrap/Container";
 import { Link, NavLink } from "react-router-dom";
 import { BsFileEarmarkPdf } from "react-icons/bs";
 import { BiGitCommit } from "react-icons/bi";
+import { FiCommand } from "react-icons/fi";
+import ThemeToggle from "./ThemeToggle";
+import { OPEN_PALETTE_EVENT, PALETTE_SHORTCUT } from "./CommandPalette";
 import {
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
@@ -48,6 +51,20 @@ function NavBar() {
             AS
           </span>
         </Navbar.Brand>
+        <div className="nav-actions order-md-last">
+          <button
+            type="button"
+            className="palette-trigger"
+            onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))}
+            aria-label="Open command palette"
+            title={`Quick navigation (${PALETTE_SHORTCUT})`}
+            data-magnetic
+          >
+            <FiCommand className="palette-trigger-icon" />
+            <kbd>{PALETTE_SHORTCUT}</kbd>
+          </button>
+          <ThemeToggle />
+        </div>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => {
@@ -64,11 +81,12 @@ function NavBar() {
               <Nav.Item key={to} className="nav-item-animated" style={{ "--i": i }}>
                 <Nav.Link
                   as={NavLink}
+                  title={label}
                   to={to}
                   end={to === "/"}
                   onClick={() => updateExpanded(false)}
                 >
-                  <Icon style={{ marginBottom: "2px" }} /> {label}
+                  <Icon style={{ marginBottom: "2px" }} /> <span className="nav-label">{label}</span>
                 </Nav.Link>
               </Nav.Item>
             ))}

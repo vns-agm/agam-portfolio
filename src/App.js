@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import PageLoader from "./components/PageLoader";
 import CursorGlow from "./components/CursorGlow";
 import Particle from "./components/Particle";
+import CommandPalette from "./components/CommandPalette";
+import useInteractions from "./components/useInteractions";
 import ScrollIndicators from "./components/ScrollIndicators";
 import {
   BrowserRouter as Router,
@@ -19,6 +21,7 @@ import "./App.css";
 import "./animations.css";
 import "./responsive.css";
 import "./polish.css";
+import "./theme.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Each page is its own chunk, downloaded only when first visited.
@@ -51,6 +54,7 @@ function AnimatedRoutes() {
 
 function App() {
   const [load, upadateLoad] = useState(true);
+  useInteractions();
 
   useEffect(() => {
     // Hide the splash right after the app mounts instead of waiting for every
@@ -69,6 +73,7 @@ function App() {
       <div className="App" id={load ? "no-scroll" : "scroll"}>
         <Navbar />
         <ScrollToTop />
+        <CommandPalette />
         <AnimatedRoutes />
         <Footer />
       </div>

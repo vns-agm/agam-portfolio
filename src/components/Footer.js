@@ -4,8 +4,10 @@ import {
   AiFillGithub,
   AiFillInstagram,
 } from "react-icons/ai";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaBlog } from "react-icons/fa";
 import { SiLichess, SiLeetcode } from "react-icons/si";
+
+const BLOG_URL = "https://agam-blog-iota.vercel.app/";
 
 function Footer() {
   let date = new Date();
@@ -18,6 +20,9 @@ function Footer() {
         </Col>
         <Col md="4" className="footer-copywright">
           <h3>Copyright © {year} AS</h3>
+          <a href={BLOG_URL} target="_blank" rel="noreferrer" className="footer-blog-link">
+            <FaBlog /> Read my blog
+          </a>
         </Col>
         <Col md="4" className="footer-body">
           <ul className="footer-icons">
@@ -74,6 +79,19 @@ function Footer() {
                 title="LeetCode"
               >
                 <SiLeetcode />
+              </a>
+            </li>
+            <li className="social-icons">
+              <a
+                href={BLOG_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="icon-colour home-social-icons"
+                title="Blog"
+                aria-label="Blog"
+                data-magnetic
+              >
+                <FaBlog />
               </a>
             </li>
           </ul>

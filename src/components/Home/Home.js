@@ -37,13 +37,14 @@ function Home() {
               </div>
 
               <div className="hero-ctas hero-enter" style={{ "--d": "380ms" }}>
-                <Link to="/project" className="btn btn-primary hero-btn">
+                <Link to="/project" className="btn btn-primary hero-btn" data-magnetic>
                   View my work <BsArrowRight />
                 </Link>
                 <a
                   href="/Agam_Srivastava_MERN_3.8YOE.pdf"
                   download
                   className="btn hero-btn hero-btn-ghost"
+                  data-magnetic
                 >
                   <AiOutlineDownload /> Resume
                 </a>

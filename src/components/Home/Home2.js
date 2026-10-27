@@ -1,10 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Reveal from "../Reveal";
 import { yearsExp } from "./Stats";
 import { AiFillGithub, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { SiLichess, SiLeetcode } from "react-icons/si";
+
+// chess.js is ~95 KB, so the puzzle loads in its own chunk after the hero.
+const ChessPuzzle = lazy(() => import("./ChessPuzzle"));
 
 const stack = [
   { area: "Frontend", items: "Angular, React, Next.js, micro-frontend and component-based architecture" },
@@ -63,6 +66,9 @@ function Home2() {
             </div>
           </Reveal>
         </Row>
+        <Suspense fallback={<div className="puzzle puzzle-placeholder glass-card" aria-hidden="true" />}>
+          <ChessPuzzle />
+        </Suspense>
         <Row>
           <Reveal as={Col} md={12} className="home-about-social">
             <h1>LET'S CONNECT</h1>
@@ -75,7 +81,8 @@ function Home2() {
                   href="https://github.com/vns-agm"
                   target="_blank"
                   rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+                  className="icon-colour home-social-icons"
+                  data-magnetic
                   title="Github"
                 >
                   <AiFillGithub />
@@ -86,7 +93,8 @@ function Home2() {
                   href="https://lichess.org/@/vns-agm"
                   target="_blank"
                   rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+                  className="icon-colour home-social-icons"
+                  data-magnetic
                   title="Lichess"
                 >
                   <SiLichess />
@@ -97,7 +105,8 @@ function Home2() {
                   href="https://www.linkedin.com/in/agam-srivastava-33456b212/"
                   target="_blank"
                   rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+                  className="icon-colour home-social-icons"
+                  data-magnetic
                   title="Linkedin"
                 >
                   <FaLinkedinIn />
@@ -109,6 +118,7 @@ function Home2() {
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour home-social-icons"
+                  data-magnetic
                   title="Instagram"
                 >
                   <AiFillInstagram />
@@ -120,6 +130,7 @@ function Home2() {
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour home-social-icons"
+                  data-magnetic
                   title="LeetCode"
                 >
                   <SiLeetcode />

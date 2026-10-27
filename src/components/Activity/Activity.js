@@ -51,7 +51,7 @@ async function fetchYear(year) {
 
 // Commits authored in a given month, via GitHub's commit search.
 async function fetchCommits(year, month) {
-  const key = `gh-commits-${USERNAME}-${year}-${month}`;
+  const key = `gh-commits-v2-${USERNAME}-${year}-${month}`;
   const cached = cacheGet(key);
   if (cached) return cached;
   const from = isoDay(year, month, 1);
@@ -74,7 +74,15 @@ async function fetchCommits(year, month) {
     message: (item.commit?.message || "").split("\n")[0],
     date: item.commit?.author?.date,
   }));
-  const result = { total: json.total_count || commits.length, commits };
+  // Search can return the same commit more than once (e.g. via forks); keep one per repo+sha.
+  const seen = new Set();
+  const unique = commits.filter((c) => {
+    const id = `${c.repo}@${c.sha}`;
+    if (seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
+  const result = { total: json.total_count || unique.length, commits: unique };
   cacheSet(key, result);
   return result;
 }
@@ -350,7 +358,7 @@ function Activity() {
                         })}
                       </div>
                       {commitsByDay[day].map((c) => (
-                        <a key={c.sha} href={c.url} target="_blank" rel="noreferrer" className="commit-item">
+                        <a key={`${c.repo}@${c.sha}`} href={c.url} target="_blank" rel="noreferrer" className="commit-item">
                           <span className="commit-msg">{c.message}</span>
                           <span className="commit-meta">
                             <FaCodeBranch /> {c.repo}
