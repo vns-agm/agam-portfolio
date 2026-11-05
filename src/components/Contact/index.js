@@ -1,102 +1,115 @@
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { AiOutlineMail, AiOutlinePhone, AiOutlineCopy, AiOutlineCheck } from "react-icons/ai";
+import { FiArrowUpRight, FiCheck, FiCopy, FiMail, FiPhone } from "react-icons/fi";
+import PageHeader from "../ui/PageHeader";
 import Reveal from "../Reveal";
-import LazyImage from "../LazyImage";
-import trophies from "../../Assets/opt/trophies-400.png";
+import { PERSON, RESUME, SOCIALS } from "../../data/site";
 
-const EMAIL = "agamsrivastavavns1193@gmail.com";
-const PHONE = "+91 8687522809";
+async function copyText(value) {
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch (e) {
+    // Clipboard API can be blocked; fall back to a hidden textarea.
+    const area = document.createElement("textarea");
+    area.value = value;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(area);
+    return ok;
+  }
+}
 
 function ContactRow({ Icon, label, value, href }) {
-    const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-    const copy = async () => {
-        try {
-            await navigator.clipboard.writeText(value);
-        } catch (e) {
-            // Clipboard API can be blocked; fall back to a hidden textarea.
-            const area = document.createElement("textarea");
-            area.value = value;
-            area.setAttribute("readonly", "");
-            area.style.position = "fixed";
-            area.style.opacity = "0";
-            document.body.appendChild(area);
-            area.select();
-            const ok = document.execCommand("copy");
-            document.body.removeChild(area);
-            if (!ok) return;
-        }
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1800);
-    };
+  const copy = async () => {
+    if (!(await copyText(value))) return;
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  };
 
-    return (
-        <div className="contact-row">
-            <a href={href} className="contact-link">
-                <Icon className="contact-icon" />
-                <span>
-                    <small>{label}</small>
-                    <strong className="purple">{value}</strong>
-                </span>
-            </a>
-            <button
-                type="button"
-                className={`copy-btn ${copied ? "is-copied" : ""}`}
-                onClick={copy}
-                aria-label={`Copy ${label.toLowerCase()}`}
-            >
-                {copied ? <AiOutlineCheck /> : <AiOutlineCopy />}
-                <span>{copied ? "Copied!" : "Copy"}</span>
-            </button>
-        </div>
-    );
+  return (
+    <div className="contact-row">
+      <a href={href} className="contact-link">
+        <Icon className="contact-icon" aria-hidden="true" />
+        <span>
+          <small>{label}</small>
+          <strong>{value}</strong>
+        </span>
+      </a>
+      <button
+        type="button"
+        className={`btn btn-secondary btn-sm copy-btn ${copied ? "is-copied" : ""}`}
+        onClick={copy}
+        aria-label={`Copy ${label.toLowerCase()}`}
+      >
+        {copied ? <FiCheck aria-hidden="true" /> : <FiCopy aria-hidden="true" />}
+        <span>{copied ? "Copied" : "Copy"}</span>
+      </button>
+    </div>
+  );
 }
 
 function Contact() {
-    return (
-        <Container className="about-section">
-                <Row style={{ justifyContent: "center", padding: "5px" }}>
-                    <Reveal
-                        as={Col}
-                        md={7}
-                        direction="left"
-                        style={{
-                            justifyContent: "center",
-                            paddingBottom: "50px",
-                        }}
-                    >
-                        <h4 style={{ fontSize: "1.2em", paddingBottom: "20px" }}>
-                            <p>
-                                Welcome to my website!
-<br/>
-                                If you have any questions, comments, or feedback, I would love to hear from you! <br/>
-                                 Your input is invaluable to me, so please don't hesitate to reach out.
-                            </p>
-                        </h4>
-                        <ContactRow Icon={AiOutlineMail} label="Email" value={EMAIL} href={`mailto:${EMAIL}`} />
-                        <ContactRow Icon={AiOutlinePhone} label="Phone" value={PHONE} href={`tel:${PHONE.replace(/\s/g, "")}`} />
-                        <h4 style={{ fontSize: "1.2em", paddingTop: "20px" }}>
-                            <p>
-                                Looking forward to connecting with you!<br/>
-                                <br/>
-                                Warm regards,<br/>
-                                Agam Srivastava
-                            </p>
-                        </h4>
-                    </Reveal>
-                    <Reveal
-                        as={Col}
-                        md={5}
-                        direction="right"
-                        delay={150}
-                        className="about-img"
-                    >
-                        <LazyImage src={trophies} alt="Chess trophies" className="img-fluid float-slow" />
-                    </Reveal>
-                </Row>
-        </Container>
-    );
+  return (
+    <>
+      <PageHeader
+        eyebrow="Contact"
+        title={
+          <>
+            Let's <em>talk.</em>
+          </>
+        }
+        lead="Questions, ideas or opportunities. I read everything and usually reply within a day or two."
+      />
+
+      <section className="section contact" aria-label="Contact details">
+        <div className="container contact-grid">
+          <Reveal className="contact-primary">
+            <p className="contact-availability">
+              <span className="status-dot" aria-hidden="true" />
+              Open to conversations about full-stack, cloud and product engineering roles.
+            </p>
+            <ContactRow Icon={FiMail} label="Email" value={PERSON.email} href={`mailto:${PERSON.email}`} />
+            <ContactRow
+              Icon={FiPhone}
+              label="Phone"
+              value={PERSON.phone}
+              href={`tel:${PERSON.phone.replace(/\s/g, "")}`}
+            />
+            <p className="muted contact-signoff">
+              Looking forward to hearing from you.
+              <br />— {PERSON.name}
+            </p>
+          </Reveal>
+
+          <Reveal as="aside" className="contact-side" aria-label="Elsewhere">
+            <h2 className="eyebrow no-rule">Elsewhere</h2>
+            <ul className="contact-links">
+              {SOCIALS.map((s) => (
+                <li key={s.key}>
+                  <a href={s.href} target="_blank" rel="noreferrer">
+                    <span>{s.label}</span>
+                    <FiArrowUpRight aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={RESUME.href} download={RESUME.fileName}>
+                  <span>Résumé (PDF)</span>
+                  <FiArrowUpRight aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+    </>
+  );
 }
 
 export default Contact;

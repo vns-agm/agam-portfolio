@@ -3,14 +3,17 @@
 
 <head>
   <meta charset="utf-8" />
-  <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.png" /> -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#140f23" />
+  <meta name="theme-color" content="#f6f3ee" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://api.github.com" crossorigin />
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   <script>
     // Pick the theme before first paint so there's no flash of the wrong one:
     // saved choice first, otherwise the OS preference.
@@ -18,27 +21,27 @@
       var theme;
       try { theme = localStorage.getItem("theme"); } catch (e) {}
       if (theme !== "light" && theme !== "dark") {
-        theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
       document.documentElement.setAttribute("data-theme", theme);
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute("content", theme === "light" ? "#f6f2fb" : "#140f23");
+      if (meta) meta.setAttribute("content", theme === "light" ? "#f6f3ee" : "#121110");
     })();
   </script>
   <style>
     /* Paint the right background before any CSS/JS arrives. */
-    html, body { background: #140f23; }
-    html[data-theme="light"], html[data-theme="light"] body { background: #f6f2fb; }
+    html, body { background: #f6f3ee; }
+    html[data-theme="dark"], html[data-theme="dark"] body { background: #121110; }
   </style>
-  <meta name="description" content="Self Developed personal website built with React.js" />
+  <meta name="description" content="Agam Srivastava, full-stack engineer building scalable web applications and cloud microservices. Selected work, experience and contact." />
   <meta itemprop="name" content="Agam Srivastava | Portfolio">
-  <meta itemprop="description" content="Self Developed personal website built with React.js">
+  <meta itemprop="description" content="Agam Srivastava, full-stack engineer building scalable web applications and cloud microservices. Selected work, experience and contact.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Agam Srivastava | Portfolio">
-  <meta property="og:description" content="Self Developed personal website built with React.js">
+  <meta property="og:description" content="Agam Srivastava, full-stack engineer building scalable web applications and cloud microservices. Selected work, experience and contact.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Agam Srivastava | Portfolio">
-  <meta name="twitter:description" content="Self Developed personal website built with React.js">
+  <meta name="twitter:description" content="Agam Srivastava, full-stack engineer building scalable web applications and cloud microservices. Selected work, experience and contact.">
   <title>Agam Srivastava | Portfolio</title>
 </head>
 

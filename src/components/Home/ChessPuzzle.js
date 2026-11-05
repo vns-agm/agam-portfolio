@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Chess } from "chess.js";
 import { FaChessKnight } from "react-icons/fa";
+import { FiArrowRight } from "react-icons/fi";
 import Reveal from "../Reveal";
 
 // Mate-in-one puzzles, all white to move. Each has exactly one mating move
@@ -90,34 +91,36 @@ function ChessPuzzle() {
       : "White to move and mate in one. Tap a white piece.";
 
   return (
-    <Reveal className="puzzle glass-card" id="puzzle">
+    <Reveal className="puzzle" id="puzzle">
       <div className="puzzle-copy">
-        <span className="puzzle-kicker">
-          <FaChessKnight /> Your move
+        <span className="eyebrow">
+          <FaChessKnight aria-hidden="true" /> Your move
         </span>
-        <h2>
-          Can you find <span className="purple">mate in one?</span>
+        <h2 className="title">
+          Can you find <em>mate in one?</em>
         </h2>
-        <p className="puzzle-sub">
-          I've played chess at national level. Here's a small one for you: <strong>{puzzle.name}</strong>.
+        <p className="muted">
+          I've played chess at national level, and it still shapes how I build software. Here's a small one for you:{" "}
+          <strong className="puzzle-name">{puzzle.name}</strong>.
         </p>
         <p className={`puzzle-status is-${status}`} role="status" aria-live="polite">
           {message}
         </p>
         <div className="puzzle-actions">
           {status === "solved" ? (
-            <button type="button" className="btn hero-btn" onClick={() => load((index + 1) % PUZZLES.length)} data-magnetic>
-              Next puzzle →
+            <button type="button" className="btn btn-primary btn-sm" onClick={() => load((index + 1) % PUZZLES.length)}>
+              Next puzzle <FiArrowRight className="arrow" aria-hidden="true" />
             </button>
           ) : (
-            <button type="button" className="btn hero-btn hero-btn-ghost" onClick={() => setShowHint(true)} disabled={showHint}>
-              {showHint ? puzzle.hint : "Need a hint?"}
+            <button type="button" className="btn btn-secondary btn-sm" onClick={() => setShowHint(true)} disabled={showHint}>
+              {showHint ? "Hint shown" : "Show a hint"}
             </button>
           )}
-          <span className="puzzle-count">
+          <span className="puzzle-count mono">
             {index + 1} / {PUZZLES.length}
           </span>
         </div>
+        {showHint && status !== "solved" && <p className="puzzle-hint">{puzzle.hint}</p>}
       </div>
 
       <div className={`board ${status === "wrong" ? "is-wrong" : ""} ${status === "solved" ? "is-solved" : ""}`} role="grid" aria-label="Chess board">

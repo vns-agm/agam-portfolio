@@ -14,8 +14,9 @@ import { BsFileEarmarkPdf, BsMoonStars } from "react-icons/bs";
 import { FaLinkedinIn, FaChessKnight, FaBlog } from "react-icons/fa";
 import { SiLeetcode, SiLichess } from "react-icons/si";
 import { toggleTheme } from "../theme";
+import { PERSON, RESUME, BLOG_URL } from "../data/site";
 
-const EMAIL = "agamsrivastavavns1193@gmail.com";
+const EMAIL = PERSON.email;
 export const OPEN_PALETTE_EVENT = "open-command-palette";
 
 const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform);
@@ -51,9 +52,9 @@ function CommandPalette() {
     () => [
       { group: "Pages", label: "Home", Icon: AiOutlineHome, run: () => navigate("/") },
       { group: "Pages", label: "About & experience", Icon: AiOutlineUser, run: () => navigate("/about") },
-      { group: "Pages", label: "Projects", Icon: AiOutlineFundProjectionScreen, run: () => navigate("/project") },
+      { group: "Pages", label: "Work", keywords: "projects portfolio", Icon: AiOutlineFundProjectionScreen, run: () => navigate("/project") },
       { group: "Pages", label: "Code activity", Icon: BiGitCommit, run: () => navigate("/activity") },
-      { group: "Pages", label: "Resume", Icon: BsFileEarmarkPdf, run: () => navigate("/resume") },
+      { group: "Pages", label: "Résumé", keywords: "resume cv", Icon: BsFileEarmarkPdf, run: () => navigate("/resume") },
       { group: "Pages", label: "Contact", Icon: AiOutlineMail, run: () => navigate("/contact") },
       {
         group: "Actions",
@@ -81,16 +82,16 @@ function CommandPalette() {
       },
       {
         group: "Actions",
-        label: "Download resume (PDF)",
+        label: "Download résumé (PDF)", keywords: "resume cv",
         Icon: AiOutlineDownload,
         run: () => {
           const a = document.createElement("a");
-          a.href = "/Agam_Srivastava_MERN_3.8YOE.pdf";
-          a.download = "Agam_Srivastava_Resume.pdf";
+          a.href = RESUME.href;
+          a.download = RESUME.fileName;
           a.click();
         },
       },
-      { group: "Links", label: "Blog", keywords: "posts writing articles", Icon: FaBlog, run: () => openExternal("https://agam-blog-iota.vercel.app/") },
+      { group: "Links", label: "Blog", keywords: "posts writing articles", Icon: FaBlog, run: () => openExternal(BLOG_URL) },
       { group: "Links", label: "GitHub", Icon: AiFillGithub, run: () => openExternal("https://github.com/vns-agm") },
       { group: "Links", label: "LinkedIn", Icon: FaLinkedinIn, run: () => openExternal("https://www.linkedin.com/in/agam-srivastava-33456b212/") },
       { group: "Links", label: "LeetCode", Icon: SiLeetcode, run: () => openExternal("https://leetcode.com/u/urVlyMewy3/") },

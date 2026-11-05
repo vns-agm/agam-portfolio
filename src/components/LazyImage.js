@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
-// Native lazy-loaded image with a shimmer placeholder and a blur-in once it arrives.
-function LazyImage({ src, alt, className = "", wrapperClassName = "", ...rest }) {
+// Native lazy-loaded image that fades in once decoded. `eager` is for
+// above-the-fold images, which should start loading immediately.
+function LazyImage({ src, alt, className = "", eager = false, ...rest }) {
   const imgRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -11,12 +12,13 @@ function LazyImage({ src, alt, className = "", wrapperClassName = "", ...rest })
   }, [src]);
 
   return (
-    <div className={`lazy-image ${loaded ? "is-loaded" : ""} ${wrapperClassName}`}>
+    <div className={`lazy-image ${loaded ? "is-loaded" : ""}`}>
       <img
         ref={imgRef}
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
+        fetchpriority={eager ? "high" : undefined}
         decoding="async"
         onLoad={() => setLoaded(true)}
         className={className}

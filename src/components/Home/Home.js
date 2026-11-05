@@ -1,85 +1,253 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Tilt from "react-parallax-tilt";
-import homeLogo from "../../Assets/home-main.svg";
-import Home2 from "./Home2";
-import Type from "./Type";
-import Stats from "./Stats";
-import canTilt from "../canTilt";
+import React, { lazy, Suspense, useRef } from "react";
 import { Link } from "react-router-dom";
-import { BsArrowRight } from "react-icons/bs";
-import { AiOutlineDownload } from "react-icons/ai";
+import { FiArrowRight, FiArrowDown } from "react-icons/fi";
+import Reveal from "../Reveal";
+import SectionHeader from "../ui/SectionHeader";
+import { LazyMotion, domAnimation, m, useReducedMotion, useScroll, useTransform } from "motion/react";
+import AnimatedHeadline from "../motion/AnimatedHeadline";
+import HeroVisual from "../motion/HeroVisual";
+import Magnetic from "../motion/Magnetic";
+import CountUp from "../motion/CountUp";
+import Marquee from "../motion/Marquee";
+import ScrollRevealText from "../motion/ScrollRevealText";
+import RotatingText from "../motion/RotatingText";
+import ScrollStatements from "../motion/ScrollStatements";
+import ProjectCard from "../Projects/ProjectCard";
+import { FEATURED_PROJECTS } from "../../data/projects";
+import { PERSON, RESUME, YEARS_EXPERIENCE } from "../../data/site";
+import heroCrm from "../../Assets/opt/hero-crm.jpg";
+import heroBlog from "../../Assets/opt/agam_blog.jpg";
+
+// chess.js is ~95 KB, so the puzzle loads in its own chunk after the hero.
+const ChessPuzzle = lazy(() => import("./ChessPuzzle"));
+
+const FIGURES = [
+  { to: YEARS_EXPERIENCE, decimals: YEARS_EXPERIENCE % 1 ? 1 : 0, suffix: "+", label: "Years building production software" },
+  { to: 2, label: "Companies, from intern to senior engineer" },
+  { to: 15, suffix: "+", label: "Projects designed, built and shipped" },
+  { to: 1525, label: "FIDE rating, national-level chess" },
+];
+
+const HEADLINE = [
+  [{ text: "I build calm," }],
+  [{ text: "dependable software" }],
+  [{ text: "for" }, { text: "complex", em: true }, { text: "systems." }],
+];
+
+const STACK = [
+  "React", "Angular", "Next.js", "Node.js", "NestJS", "TypeScript", "Kafka", "Redis",
+  "AWS", "Docker", "MongoDB", "Distributed systems", "Micro-frontends", "REST APIs",
+];
+
+const CAPABILITIES = [
+  { area: "Frontend", items: "Angular, React, Next.js, micro-frontends, component architecture" },
+  { area: "Backend", items: "Node.js, NestJS, FastAPI, REST APIs, AWS API Gateway" },
+  { area: "Distributed systems", items: "Kafka, Redis, event-driven microservices, AWS SQS/SNS" },
+  { area: "Data", items: "MongoDB, DynamoDB, Redis, Firebase" },
+  { area: "Cloud & DevOps", items: "AWS, Docker, shell scripting, CI/CD" },
+  { area: "AI-assisted", items: "GitHub Copilot for faster, cleaner delivery" },
+];
+
+const ROLES = [
+  { period: "2025 — Now", title: "Senior Software Engineer", org: "Sopra Steria", note: "Airbus Aircraft Cabin program" },
+  { period: "2025", title: "Senior Software Engineer", org: "mFilterIt", note: "Dashboards and micro-frontends" },
+  { period: "2022 — 2025", title: "Software Engineer", org: "mFilterIt", note: "Product engineering, AdTech" },
+  { period: "2022", title: "R&D Intern", org: "mFilterIt", note: "Where it started" },
+];
+
+const STATEMENTS = [
+  <>
+    <em>{YEARS_EXPERIENCE}+ years</em> of shipping production software.
+  </>,
+  <>
+    Event-driven systems on <em>Kafka, Redis and AWS.</em>
+  </>,
+  <>
+    And the interfaces <em>people use every day.</em>
+  </>,
+];
 
 function Home() {
+  const heroRef = useRef(null);
+  const reduce = useReducedMotion();
+  // As the hero scrolls away its copy lifts, shrinks slightly and fades.
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const copyY = useTransform(heroProgress, [0, 1], [0, reduce ? 0 : -140]);
+  const copyScale = useTransform(heroProgress, [0, 1], [1, reduce ? 1 : 0.94]);
+  const copyOpacity = useTransform(heroProgress, [0.2, 0.85], [1, reduce ? 1 : 0]);
+
   return (
-    <section>
-      <Container fluid className="home-section" id="home">
-        <Container className="home-content">
-          <Row>
-            <Col md={7} className="home-header">
-              <div className="now-chip hero-enter">
-                <span className="pulse-dot" /> Senior Software Engineer @ <strong>Sopra Steria</strong>
-              </div>
-              <h1 style={{ paddingBottom: 15 }} className="heading hero-enter">
-                Hi There!{" "}
-                <span className="wave" role="img" aria-labelledby="wave">
-                  👋🏻
-                </span>
-              </h1>
-
-              <h1 className="heading-name hero-enter" style={{ "--d": "150ms" }}>
-                I'M
-                <strong className="main-name shimmer-text"> Agam Srivastava </strong>
-              </h1>
-
-              <div className="hero-enter hero-typewriter" style={{ "--d": "300ms" }}>
-                <Type />
-              </div>
-
-              <div className="hero-ctas hero-enter" style={{ "--d": "380ms" }}>
-                <Link to="/project" className="btn btn-primary hero-btn" data-magnetic>
-                  View my work <BsArrowRight />
+    // LazyMotion + `m` keeps Motion's footprint on the landing page small:
+    // only the DOM animation features are bundled, not the full motion component.
+    <LazyMotion features={domAnimation}>
+      {/* ---------- Hero ---------- */}
+      <section className="hero" aria-labelledby="hero-title" ref={heroRef}>
+        <div className="container hero-grid">
+          <m.div className="hero-copy" style={{ y: copyY, scale: copyScale, opacity: copyOpacity }}>
+            <p className="hero-kicker rise" style={{ "--d": "0ms" }}>
+              <span className="status-dot" aria-hidden="true" />
+              {PERSON.role} at {PERSON.company} · {PERSON.location}
+            </p>
+            <AnimatedHeadline id="hero-title" className="display hero-title" lines={HEADLINE} delay={0.15} />
+            <p className="lead hero-lead rise" style={{ "--d": "650ms" }}>
+              I'm Agam, a full-stack engineer with {YEARS_EXPERIENCE}+ years of shipping production software across
+              React, Angular, Node.js and AWS, from cloud microservices and distributed systems to the interfaces
+              people use every day.
+            </p>
+            <div className="hero-actions rise" style={{ "--d": "780ms" }}>
+              <Magnetic>
+                <Link to="/project" className="btn btn-primary">
+                  View selected work <FiArrowRight className="arrow" aria-hidden="true" />
                 </Link>
-                <a
-                  href="/Agam_Srivastava_MERN_3.8YOE.pdf"
-                  download
-                  className="btn hero-btn hero-btn-ghost"
-                  data-magnetic
-                >
-                  <AiOutlineDownload /> Resume
+              </Magnetic>
+              <Magnetic strength={0.2}>
+                <a href={RESUME.href} download={RESUME.fileName} className="btn btn-secondary">
+                  Download résumé <FiArrowDown className="arrow-down" aria-hidden="true" />
                 </a>
+              </Magnetic>
+            </div>
+          </m.div>
+
+          <HeroVisual
+            back={heroBlog}
+            front={heroCrm}
+            caption={
+              <>
+                <span className="mono">Featured</span> Agam's Blog &amp; Student CRM
+              </>
+            }
+          />
+        </div>
+
+        <div className="container">
+          <Reveal as="dl" stagger className="figures">
+            {FIGURES.map((f) => (
+              <div className="figure" key={f.label}>
+                <dt className="sr-only">{f.label}</dt>
+                <dd className="figure-value">
+                  <CountUp to={f.to} decimals={f.decimals} suffix={f.suffix} />
+                </dd>
+                <dd className="figure-label">{f.label}</dd>
               </div>
+            ))}
+          </Reveal>
+        </div>
 
-              <Stats />
-            </Col>
+        <Marquee items={STACK} label="Technologies I work with" />
+      </section>
 
-            <Col md={5} style={{ paddingBottom: 20 }} className="hero-enter hero-art" >
-              <Tilt
-                tiltMaxAngleX={8}
-                tiltMaxAngleY={8}
-                perspective={900}
-                transitionSpeed={1500}
-                tiltEnable={canTilt}
-              >
-                <img
-                  src={homeLogo}
-                  alt="home pic"
-                  className="img-fluid float-slow"
-                  width="450"
-                  height="450"
-                  fetchpriority="high"
-                  style={{ maxHeight: "450px", height: "auto" }}
-                />
-              </Tilt>
-            </Col>
-          </Row>
-        </Container>
-        <a href="#about" className="scroll-cue" aria-label="Scroll to introduction">
-          <span />
-        </a>
-      </Container>
-      <Home2 />
-    </section>
+      {/* ---------- Selected work ---------- */}
+      <section className="section" aria-labelledby="work-title">
+        <div className="container">
+          <SectionHeader
+            eyebrow="Selected work"
+            title={
+              <span id="work-title">
+                Products, taken from <span className="sr-only">idea</span>
+                <RotatingText phrases={["idea", "schema", "API", "interface", "first commit"]} interval={2200} />
+                <br />
+                to production.
+              </span>
+            }
+            action={
+              <Link to="/project" className="link">
+                All projects <FiArrowRight aria-hidden="true" />
+              </Link>
+            }
+          />
+          {FEATURED_PROJECTS.map((p, i) => (
+            <Reveal key={p.slug}>
+              <ProjectCard project={p} layout="feature" index={i} reverse={i % 2 === 1} />
+            </Reveal>
+          ))}
+          <Reveal className="more-work">
+            <p className="muted">
+              Plus six more, from a customisable data table to early experiments with maps and geolocation.
+            </p>
+            <Link to="/project" className="btn btn-secondary btn-sm">
+              Browse all projects <FiArrowRight className="arrow" aria-hidden="true" />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- Pinned statements ---------- */}
+      <ScrollStatements eyebrow="In short" statements={STATEMENTS} />
+
+      {/* ---------- Introduction ---------- */}
+      <section className="section section-rule intro" aria-labelledby="intro-title">
+        <div className="container intro-grid">
+          <Reveal className="intro-statement">
+            <span className="eyebrow">Introduction</span>
+            <ScrollRevealText
+              id="intro-title"
+              className="title"
+              segments={[
+                { text: "Good software feels simple, even when the system" },
+                { text: "behind it isn't.", em: true },
+              ]}
+            />
+          </Reveal>
+          <Reveal className="intro-body">
+            <p className="lead">
+              Before Sopra Steria, I spent nearly four years at mFilterIt, growing from R&amp;D intern to Senior Software
+              Engineer. I built end-to-end products there and was recognised with quarterly excellence awards.
+            </p>
+            <p>
+              Off the keyboard I'm a{" "}
+              <a className="prose-link" href="https://ratings.fide.com/profile/25662210" target="_blank" rel="noreferrer">
+                national-level chess player
+              </a>
+              . Chess shapes how I approach system design: think several moves ahead, and plan for the edge cases
+              before they arrive.
+            </p>
+
+            <dl className="capabilities">
+              {CAPABILITIES.map((c) => (
+                <div key={c.area} className="capability">
+                  <dt>{c.area}</dt>
+                  <dd>{c.items}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- Experience snapshot ---------- */}
+      <section className="section" aria-labelledby="exp-title">
+        <div className="container">
+          <SectionHeader
+            eyebrow="Experience"
+            title={<span id="exp-title">Four roles, two companies, one steady climb.</span>}
+            action={
+              <Link to="/about" className="link">
+                Full experience <FiArrowRight aria-hidden="true" />
+              </Link>
+            }
+          />
+          <Reveal as="ol" stagger className="roles">
+            {ROLES.map((r) => (
+              <li className="role-row" key={r.period + r.title}>
+                <span className="role-period mono">{r.period}</span>
+                <span className="role-title">{r.title}</span>
+                <span className="role-org">{r.org}</span>
+                <span className="role-note">{r.note}</span>
+              </li>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- Chess puzzle ---------- */}
+      <section className="section" aria-label="Chess puzzle">
+        <div className="container">
+          <Suspense fallback={<div className="puzzle puzzle-placeholder" aria-hidden="true" />}>
+            <ChessPuzzle />
+          </Suspense>
+        </div>
+      </section>
+    </LazyMotion>
   );
 }
 

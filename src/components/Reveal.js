@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 // Fades/slides its children in when they scroll into view.
-// `as` lets it render as a layout component (e.g. a bootstrap Col) so grids keep working.
+// `as` lets it render as any element (a list, a definition list) so semantics stay intact.
 function Reveal({
   as: Tag = "div",
   direction = "up",

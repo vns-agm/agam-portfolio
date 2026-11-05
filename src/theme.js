@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 const EVENT = "themechange";
 
 export function getTheme() {
-  return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+  return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
 }
 
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", theme === "light" ? "#f6f2fb" : "#140f23");
+  if (meta) meta.setAttribute("content", theme === "light" ? "#f6f3ee" : "#121110");
   try {
     localStorage.setItem("theme", theme);
   } catch (e) {

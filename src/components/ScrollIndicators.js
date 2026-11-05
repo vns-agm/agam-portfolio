@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineArrowUp } from "react-icons/ai";
+import { FiArrowUp } from "react-icons/fi";
 
 // Reading-progress bar along the top edge plus a back-to-top button.
 function ScrollIndicators() {
@@ -39,7 +39,7 @@ function ScrollIndicators() {
         aria-label="Back to top"
         tabIndex={showTop ? 0 : -1}
       >
-        <AiOutlineArrowUp />
+        <FiArrowUp aria-hidden="true" />
       </button>
     </>
   );

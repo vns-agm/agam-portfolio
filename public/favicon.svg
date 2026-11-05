@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Chess pawn in ivory on the site's charcoal, matching the "AS" brand mark. -->
+  <rect width="64" height="64" rx="14" fill="#1b1a18"/>
+  <g fill="#f6f3ee">
+    <circle cx="32" cy="17.5" r="7.5"/>
+    <rect x="23" y="26" width="18" height="4" rx="2"/>
+    <path d="M27 30h10c0 6.5 2.4 11.8 6 15.5H21c3.6-3.7 6-9 6-15.5z"/>
+    <rect x="18" y="45" width="28" height="4.5" rx="2"/>
+    <rect x="15" y="49" width="34" height="5" rx="2.5"/>
+  </g>
+</svg>

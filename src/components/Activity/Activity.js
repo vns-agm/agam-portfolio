@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container } from "react-bootstrap";
+import PageHeader from "../ui/PageHeader";
 import { FaChevronLeft, FaChevronRight, FaFire, FaCodeBranch } from "react-icons/fa";
 import { BiGitCommit } from "react-icons/bi";
 import { AiFillGithub } from "react-icons/ai";
@@ -199,20 +199,27 @@ function Activity() {
   };
 
   return (
-    <Container fluid className="activity-section">
-      <Container>
-        <Reveal as="h1" className="project-heading">
-          Code <strong className="purple">Activity</strong>
-        </Reveal>
-        <p className="project-subheading">
-          My GitHub commits, live from{" "}
-          <a href={`https://github.com/${USERNAME}`} target="_blank" rel="noreferrer" className="purple">
-            @{USERNAME}
-          </a>
-          . Pick a month, then click a day to see what I shipped.
-        </p>
-
-        <Reveal className="activity-shell glass-card">
+    <>
+      <PageHeader
+        eyebrow="Activity"
+        title={
+          <>
+            What I'm <em>shipping.</em>
+          </>
+        }
+        lead={
+          <>
+            My GitHub commits, live from{" "}
+            <a href={`https://github.com/${USERNAME}`} target="_blank" rel="noreferrer" className="prose-link">
+              @{USERNAME}
+            </a>
+            . Pick a month, then select a day to see the commits behind it.
+          </>
+        }
+      />
+      <section className="section activity-section" aria-label="GitHub activity">
+        <div className="container">
+        <Reveal className="activity-shell">
           <div className="activity-toolbar">
             <button type="button" className="icon-btn" onClick={() => step(-1)} disabled={atStart} aria-label="Previous month">
               <FaChevronLeft />
@@ -268,7 +275,7 @@ function Activity() {
                 </div>
                 <div className="stat-pill">
                   <strong>
-                    <FaFire className="purple" /> {stats ? stats.longest : "–"}
+                    <FaFire className="streak-icon" aria-hidden="true" /> {stats ? stats.longest : "–"}
                   </strong>
                   <span>day streak</span>
                 </div>
@@ -331,7 +338,7 @@ function Activity() {
                 {commitState.status === "error" && (
                   <div className="activity-empty">
                     <p>{commitState.message}</p>
-                    <a href={`https://github.com/${USERNAME}`} target="_blank" rel="noreferrer" className="btn btn-primary btn-sm">
+                    <a href={`https://github.com/${USERNAME}`} target="_blank" rel="noreferrer" className="btn btn-secondary btn-sm">
                       <AiFillGithub /> Open GitHub
                     </a>
                   </div>
@@ -372,8 +379,9 @@ function Activity() {
             </div>
           </div>
         </Reveal>
-      </Container>
-    </Container>
+        </div>
+      </section>
+    </>
   );
 }
 

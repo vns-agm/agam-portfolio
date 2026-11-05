@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { FaMapMarkerAlt, FaTrophy } from "react-icons/fa";
-import { BsChevronDown } from "react-icons/bs";
+import { FiAward, FiChevronDown, FiMapPin } from "react-icons/fi";
 import Reveal from "../Reveal";
+import SectionHeader from "../ui/SectionHeader";
 
 // Months between two "YYYY-MM" dates, both ends inclusive (Jan → May = 5),
 // matching how LinkedIn shows tenure. A missing end means "now".
@@ -30,7 +29,6 @@ function formatMonth(ym) {
 const experiences = [
   {
     company: "Sopra Steria",
-    initials: "SS",
     location: "Bengaluru, Karnataka",
     workType: "Hybrid",
     tagline: "Aeroline Unit · Client: Airbus (Aircraft Cabin program)",
@@ -55,7 +53,6 @@ const experiences = [
   },
   {
     company: "mFilterIt",
-    initials: "mF",
     location: "Noida, Uttar Pradesh",
     workType: "On-site",
     tagline: "Product-based AdTech company",
@@ -126,8 +123,12 @@ function Role({ role, isLast }) {
           </span>
         </span>
         <span className="tl-role-right">
-          {current && <span className="now-badge"><span className="pulse-dot" /> Now</span>}
-          <BsChevronDown className={`tl-chevron ${open ? "is-open" : ""}`} />
+          {current && (
+            <span className="now-badge">
+              <span className="status-dot" aria-hidden="true" /> Current
+            </span>
+          )}
+          <FiChevronDown className={`tl-chevron ${open ? "is-open" : ""}`} aria-hidden="true" />
         </span>
       </button>
       <div className={`tl-collapse ${open ? "is-open" : ""}`}>
@@ -137,11 +138,13 @@ function Role({ role, isLast }) {
               <li key={h}>{h}</li>
             ))}
           </ul>
-          <div className="skill-chips">
+          <ul className="tags" aria-label="Skills used">
             {role.skills.map((s) => (
-              <span className="skill-chip" key={s}>{s}</span>
+              <li className="tag" key={s}>
+                {s}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </div>
@@ -153,53 +156,49 @@ function Experience() {
   const totalExp = formatMonths(monthsBetween(firstStart, null));
 
   return (
-    <Container style={{ paddingTop: "50px", paddingBottom: "50px" }}>
-      <Reveal as="h1" className="project-heading">
-        Work <strong className="purple">Experience</strong>
-      </Reveal>
-      <p className="project-subheading">
-        {totalExp} of building products for the web. Click a role to expand it.
-      </p>
-      <Row style={{ justifyContent: "center" }}>
-        <Col lg={10}>
-          {experiences.map((exp, i) => {
+    <section className="section section-rule" aria-labelledby="experience-title">
+      <div className="container">
+        <SectionHeader
+          eyebrow="Experience"
+          title={<span id="experience-title">Where I've worked.</span>}
+          lead={`${totalExp} of building products for the web. Select a role to read more.`}
+        />
+
+        <div className="exp-list">
+          {experiences.map((exp) => {
             const companyStart = exp.roles[exp.roles.length - 1].start;
             const companyEnd = exp.roles[0].end;
             return (
-              <Reveal key={exp.company} delay={i * 100} className="exp-company glass-card">
-                <div className="exp-company-head">
-                  <div className="exp-logo" aria-hidden="true">{exp.initials}</div>
-                  <div className="exp-company-info">
-                    <h3>{exp.company}</h3>
-                    <p className="exp-tagline">{exp.tagline}</p>
-                    <p className="exp-meta">
-                      <FaMapMarkerAlt /> {exp.location}
-                      <span className="tl-sep">·</span>
-                      {exp.workType}
-                      <span className="tl-sep">·</span>
-                      {formatMonths(monthsBetween(companyStart, companyEnd))}
+              <Reveal key={exp.company} as="article" className="exp-company">
+                <header className="exp-company-head">
+                  <h3 className="title-sm">{exp.company}</h3>
+                  <p className="exp-tagline">{exp.tagline}</p>
+                  <p className="exp-meta">
+                    <FiMapPin aria-hidden="true" /> {exp.location}
+                    <span className="tl-sep">·</span>
+                    {exp.workType}
+                    <span className="tl-sep">·</span>
+                    {formatMonths(monthsBetween(companyStart, companyEnd))}
+                  </p>
+                  {exp.award && (
+                    <p className="exp-award">
+                      <FiAward aria-hidden="true" />
+                      <span>{exp.award}</span>
                     </p>
-                  </div>
-                </div>
+                  )}
+                </header>
 
                 <div className="tl">
                   {exp.roles.map((role, r) => (
                     <Role key={role.title + role.start} role={role} isLast={r === exp.roles.length - 1} />
                   ))}
                 </div>
-
-                {exp.award && (
-                  <div className="exp-award">
-                    <FaTrophy />
-                    <span>{exp.award}</span>
-                  </div>
-                )}
               </Reveal>
             );
           })}
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </section>
   );
 }
 

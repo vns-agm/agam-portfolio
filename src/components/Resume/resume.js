@@ -1,51 +1,49 @@
 import React, { useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import { AiOutlineDownload } from "react-icons/ai";
+import { FiArrowDown, FiArrowUpRight } from "react-icons/fi";
+import PageHeader from "../ui/PageHeader";
 import Reveal from "../Reveal";
-
-const pdfLink = "/Agam_Srivastava_MERN_3.8YOE.pdf";
-
-const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = pdfLink;
-    link.download = "Agam_Srivastava_MERN_3.8YOE.pdf";
-    link.target = "_blank";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-};
-
+import { RESUME } from "../../data/site";
 
 function Myresume() {
-    const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-    return (
-        <>
-            <Container fluid className="project-section">
-                <Container>
-                    <Reveal style={{ marginBottom: "20px", textAlign: "center" }}>
-                        <div className={`resume-frame ${loaded ? "is-loaded" : ""}`}>
-                            {!loaded && <div className="resume-skeleton" aria-hidden="true" />}
-                            <iframe
-                                src={`${pdfLink}#toolbar=0`}
-                                width="100%"
-                                className="resume-iframe"
-                                loading="lazy"
-                                onLoad={() => setLoaded(true)}
-                                style={{ border: "1px solid #ccc", borderRadius: "5px" }}
-                                title="Resume Preview"
-                            />
-                        </div>
-                    </Reveal>
-                    <div style={{ textAlign: "center" }}>
-                        <Button style={{margin :"2px"}} onClick={handleDownload} className="btn btn-primary download-btn">
-                            <AiOutlineDownload /> &nbsp;Download PDF
-                        </Button>
-                    </div>
-                </Container>
-            </Container>
-        </>
-    );
+  return (
+    <>
+      <PageHeader
+        eyebrow="Résumé"
+        title={
+          <>
+            The <em>one-page</em> version.
+          </>
+        }
+        lead="Experience, skills, certifications and awards. Read it here or take a copy with you."
+      >
+        <div className="hero-actions rise" style={{ "--d": "240ms" }}>
+          <a href={RESUME.href} download={RESUME.fileName} className="btn btn-primary">
+            Download PDF <FiArrowDown className="arrow-down" aria-hidden="true" />
+          </a>
+          <a href={RESUME.href} target="_blank" rel="noreferrer" className="btn btn-secondary">
+            Open in new tab <FiArrowUpRight aria-hidden="true" />
+          </a>
+        </div>
+      </PageHeader>
+
+      <section className="section resume" aria-label="Résumé preview">
+        <div className="container">
+          <Reveal className={`resume-frame ${loaded ? "is-loaded" : ""}`}>
+            {!loaded && <div className="resume-skeleton" aria-hidden="true" />}
+            <iframe
+              src={`${RESUME.href}#toolbar=0&view=FitH`}
+              className="resume-iframe"
+              loading="lazy"
+              onLoad={() => setLoaded(true)}
+              title="Résumé preview"
+            />
+          </Reveal>
+        </div>
+      </section>
+    </>
+  );
 }
 
 export default Myresume;
