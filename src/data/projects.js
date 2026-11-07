@@ -6,6 +6,7 @@ import customTable from "../Assets/opt/custom_table.jpg";
 import season from "../Assets/opt/season.jpg";
 import exploring from "../Assets/opt/exploring.jpg";
 import kashiDana from "../Assets/opt/blog.jpg";
+import productCatalogue from "../Assets/opt/product_catalogue.jpg";
 
 // Categories drive the filter on the Work page.
 export const CATEGORIES = ["Products", "Interfaces", "Early work"];
@@ -64,6 +65,18 @@ export const PROJECTS = [
       "Batch management",
       "CSV export for reporting",
     ],
+  },
+  {
+    slug: "product-catalogue",
+    title: "Product Catalogue",
+    category: "Products",
+    summary: "Browse, search and enquire, with enquiries emailed to sales.",
+    description:
+      "A proof-of-concept product catalogue: browse featured products and categories, search, view a product and send an enquiry that emails the sales inbox.",
+    stack: ["React", "TypeScript", "Express", "Turso"],
+    image: productCatalogue,
+    repo: "https://github.com/vns-agm/product-catalogue",
+    live: "https://product-catalogue-xi.vercel.app",
   },
   {
     slug: "exploring-places",

@@ -175,7 +175,7 @@ function Home() {
           ))}
           <Reveal className="more-work">
             <p className="muted">
-              Plus six more, from a customisable data table to early experiments with maps and geolocation.
+              Plus seven more, from a product catalogue and a customisable data table to early experiments with maps and geolocation.
             </p>
             <Link to="/project" className="btn btn-secondary btn-sm">
               Browse all projects <FiArrowRight className="arrow" aria-hidden="true" />
