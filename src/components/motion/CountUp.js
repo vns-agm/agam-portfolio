@@ -3,10 +3,12 @@ import { animate, useInView, useReducedMotion } from "motion/react";
 
 // Counts from 0 to `to` the first time it scrolls into view. A hidden copy of
 // the final value reserves the width, so nothing shifts while digits change.
-function CountUp({ to, decimals = 0, suffix = "", duration = 1.8 }) {
+// `play`, when given, overrides the in-view trigger (e.g. content revealed by a clip-path).
+function CountUp({ to, decimals = 0, suffix = "", duration = 1.8, play }) {
   const ref = useRef(null);
   // Start as soon as any part shows, so the row never sits at "0" on first view.
-  const inView = useInView(ref, { once: true });
+  const seen = useInView(ref, { once: true });
+  const inView = play === undefined ? seen : play;
   const reduce = useReducedMotion();
   const [value, setValue] = useState(reduce ? to : 0);
   const final = `${to.toFixed(decimals)}${suffix}`;

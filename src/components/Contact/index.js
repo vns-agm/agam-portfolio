@@ -3,6 +3,8 @@ import { FiArrowUpRight, FiCheck, FiCopy, FiMail, FiPhone } from "react-icons/fi
 import PageHeader from "../ui/PageHeader";
 import Reveal from "../Reveal";
 import { PERSON, RESUME, SOCIALS } from "../../data/site";
+import SketchPortrait from "./SketchPortrait";
+import portrait from "../../Assets/opt/agam-portrait.jpg";
 
 async function copyText(value) {
   try {
@@ -88,6 +90,16 @@ function Contact() {
           </Reveal>
 
           <Reveal as="aside" className="contact-side" aria-label="Elsewhere">
+            <SketchPortrait
+              src={portrait}
+              alt="Agam Srivastava holding a gold medal and certificate on the podium at The Chess Conquerors' Cup 2025, DLF Mall of India, Noida"
+              caption={
+                <>
+                  <span className="mono">01 · 2025</span>
+                  <span>Gold at The Chess Conquerors' Cup, Noida</span>
+                </>
+              }
+            />
             <h2 className="eyebrow no-rule">Elsewhere</h2>
             <ul className="contact-links">
               {SOCIALS.map((s) => (

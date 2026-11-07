@@ -9,9 +9,12 @@ const EASE = [0.22, 1, 0.36, 1];
  * spans are hidden from them.
  *
  * @param {{ lines: {text: string, em?: boolean}[][], as?: string, delay?: number,
- *           className?: string, id?: string }} props
+ *           className?: string, id?: string, portalRef?: React.Ref }} props
+ *
+ * A segment with `portal: "o"` swaps the first "o" of its word for a drawn
+ * ring (passed back through `portalRef`) that the hero zooms through.
  */
-function AnimatedHeadline({ lines, as: Tag = "h1", delay = 0.1, className = "", id }) {
+function AnimatedHeadline({ lines, as: Tag = "h1", delay = 0.1, className = "", id, portalRef }) {
   const reduce = useReducedMotion();
   const label = lines.map((line) => line.map((s) => s.text).join(" ")).join(" ");
   let index = 0;
@@ -33,7 +36,15 @@ function AnimatedHeadline({ lines, as: Tag = "h1", delay = 0.1, className = "", 
                       animate={{ y: "0%" }}
                       transition={{ duration: 0.95, ease: EASE, delay: delay + i * 0.07 }}
                     >
-                      {word}
+                      {seg.portal && word.includes(seg.portal) ? (
+                        <>
+                          {word.slice(0, word.indexOf(seg.portal))}
+                          <span className="portal-o" ref={portalRef} />
+                          {word.slice(word.indexOf(seg.portal) + seg.portal.length)}
+                        </>
+                      ) : (
+                        word
+                      )}
                     </Word>
                   </span>{" "}
                 </React.Fragment>

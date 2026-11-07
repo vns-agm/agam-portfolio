@@ -2212,3 +2212,272 @@ html[data-theme="dark"] .tunnel-copy em {
     display: inline;
   }
 }
+
+/* ================= Contact: sketch portrait ================= */
+.sketch-portrait {
+  margin: 0 0 12px;
+}
+.sketch-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  /* Paper: faint ruled grid so the sketch has something to sit on. */
+  background-color: var(--bg-elev);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+  box-shadow: var(--shadow-md);
+}
+.sketch-canvas,
+.sketch-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sketch-photo {
+  object-fit: cover;
+  /* The colour photo washes in diagonally once the sketch is finished. */
+  -webkit-mask-image: linear-gradient(120deg, #000 40%, transparent 60%);
+  mask-image: linear-gradient(120deg, #000 40%, transparent 60%);
+  -webkit-mask-size: 300% 300%;
+  mask-size: 300% 300%;
+  -webkit-mask-position: 100% 100%;
+  mask-position: 100% 100%;
+  transition: -webkit-mask-position 1.4s var(--ease), mask-position 1.4s var(--ease), opacity 0.5s var(--ease);
+}
+.sketch-portrait.is-color .sketch-photo {
+  -webkit-mask-position: 0% 0%;
+  mask-position: 0% 0%;
+}
+/* Hover or focus peels the photo back to the drawing underneath. */
+@media (hover: hover) {
+  .sketch-portrait.is-color .sketch-frame:hover .sketch-photo {
+    opacity: 0;
+  }
+}
+.sketch-pencil {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  margin: -30px 0 0 -4px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--on-ink);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: left 0.12s linear, top 0.12s linear, opacity 0.3s var(--ease);
+}
+.sketch-pencil svg {
+  width: 16px;
+  height: 16px;
+}
+.sketch-portrait.is-drawing .sketch-pencil {
+  opacity: 1;
+}
+.sketch-corner {
+  position: absolute;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  border: 0 solid var(--accent);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease);
+}
+.sketch-corner.tl { top: 12px; left: 12px; border-top-width: 2px; border-left-width: 2px; transform: translate(10px, 10px); }
+.sketch-corner.tr { top: 12px; right: 12px; border-top-width: 2px; border-right-width: 2px; transform: translate(-10px, 10px); }
+.sketch-corner.bl { bottom: 12px; left: 12px; border-bottom-width: 2px; border-left-width: 2px; transform: translate(10px, -10px); }
+.sketch-corner.br { bottom: 12px; right: 12px; border-bottom-width: 2px; border-right-width: 2px; transform: translate(-10px, -10px); }
+.sketch-portrait.is-drawing .sketch-corner,
+.sketch-portrait.is-color .sketch-corner {
+  opacity: 1;
+  transform: none;
+}
+.sketch-replay {
+  position: absolute;
+  z-index: 3;
+  right: 12px;
+  bottom: 12px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg-elev);
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.sketch-portrait.is-color .sketch-frame:hover .sketch-replay,
+.sketch-replay:focus-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (hover: none) {
+  .sketch-portrait.is-color .sketch-replay {
+    opacity: 1;
+    transform: none;
+  }
+}
+.sketch-caption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: baseline;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.sketch-caption .mono {
+  color: var(--accent);
+  font-size: 12px;
+}
+@media (max-width: 991px) {
+  .sketch-portrait {
+    max-width: 420px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sketch-photo,
+  .sketch-pencil,
+  .sketch-corner {
+    transition: none;
+  }
+}
+
+
+/* ================= Home: zoom through the "o" ================= */
+/* Horizontal slide-ins must never widen the page. `clip` (not `hidden`) keeps
+   position: sticky working for the pinned hero. */
+#main {
+  overflow-x: clip;
+}
+
+/* The ring that replaces the "o" in "complex": sized to the system font's
+   lowercase o so it reads as a letter, with a hole we can measure exactly. */
+.portal-o {
+  display: inline-block;
+  width: 0.54em;
+  height: 0.555em;
+  margin: 0 0.025em -0.008em;
+  border: 0.098em solid var(--accent);
+  border-radius: 50%;
+  vertical-align: baseline;
+  box-shadow: 0 0 calc(var(--ring-glow, 0) * 0.3em) calc(var(--ring-glow, 0) * 0.02em) var(--accent-soft);
+}
+
+.hero-zoom {
+  position: relative;
+  height: 330vh;
+}
+.hero-zoom-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.hero-zoom-layer {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: var(--nav-h) 0 0;
+}
+.hero-zoom-layer > .container {
+  width: 100%;
+}
+.hero-portal {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(120% 90% at 50% 40%, var(--accent-soft), transparent 70%),
+    var(--bg-sunken);
+}
+.next-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(32px, 5vh, 64px);
+  padding-top: var(--nav-h);
+}
+.next-panel-static {
+  height: auto;
+  padding: clamp(56px, 8vw, 96px) 0 0;
+}
+.next-panel-title {
+  margin-top: 14px;
+  max-width: 16ch;
+}
+.next-panel .figures {
+  margin-top: clamp(28px, 5vh, 56px);
+}
+.hero-zoom-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--faint);
+  pointer-events: none;
+}
+.hero-zoom-hint svg {
+  animation: hint-bob 1.6s var(--ease) infinite;
+}
+@keyframes hint-bob {
+  50% {
+    transform: translateY(5px);
+  }
+}
+/* Smaller screens: the pinned hero has to fit one screen, so the screenshots
+   step aside and the zoomed-in panel tightens up. */
+@media (max-width: 991px) {
+  .hero-zoom-layer .hero-zoom-visual {
+    display: none;
+  }
+  .hero-zoom-layer .hero-lead {
+    margin-top: 20px;
+  }
+  .hero-zoom-layer .hero-actions {
+    margin-top: 24px;
+  }
+  .next-panel {
+    gap: 24px;
+  }
+  .next-panel .figure {
+    padding-top: 18px;
+  }
+}
+@media (max-height: 700px), (max-width: 575px) {
+  .hero-zoom-layer .hero-kicker {
+    margin-bottom: 16px;
+  }
+  .hero-zoom-layer .hero-lead {
+    font-size: 16px;
+  }
+  .next-panel .figure-value {
+    font-size: 32px;
+  }
+  .next-panel .figure-label {
+    font-size: 13px;
+  }
+}
